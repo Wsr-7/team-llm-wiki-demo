@@ -8,22 +8,28 @@ confidence: 0.50
 visibility: internal
 owners:
   - staff:00000000
+maintainers: []
+reviewers: []
+knowledge_sources: []
 source_refs: []
 related: []
 tags: []
+verified_at:
 review_after:
+supersedes: []
+superseded_by: []
 created_at: YYYY-MM-DD
 updated_at: YYYY-MM-DD
 ---
 
 # <title>
 
-## 背景
+## Context
 
-## 发生了什么
+## What Happened
 
-## 学到什么
+## Lessons Learned
 
-## 后续行动
+## Follow-up Actions
 
-## 来源与证据
+## Sources And Evidence

@@ -24,22 +24,22 @@ updated_at: YYYY-MM-DD
 
 # <title>
 
-## 摘要
+## Summary
 
-## 适用范围
+## Scope
 
-## 前置条件
+## Prerequisites
 
-## 操作步骤
+## Procedure
 
-## 验证方式
+## Verification
 
-## 回滚步骤
+## Rollback
 
-## 常见问题
+## FAQ
 
-## 相关页面
+## Related Pages
 
-## 来源与证据
+## Sources And Evidence
 
-## 维护记录
+## Maintenance Notes

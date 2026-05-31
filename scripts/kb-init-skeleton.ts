@@ -1,4 +1,8 @@
-$dirs = @(
+import { closeSync, existsSync, mkdirSync, openSync } from "node:fs";
+import { join } from "node:path";
+import { repoRoot } from "./kb-lib.ts";
+
+const directories = [
   "raw/sources",
   "raw/meetings",
   "raw/incidents",
@@ -7,6 +11,7 @@ $dirs = @(
   "confluence-mirror/pages",
   "confluence-mirror/manifest",
   "inbox/ingest-candidates",
+  "inbox/compile-candidates",
   "inbox/promotion-candidates",
   "inbox/conflict-review",
   "inbox/stale-review",
@@ -31,15 +36,17 @@ $dirs = @(
   "graph",
   "logs",
   "exports",
-  "site"
-)
+  "site",
+];
 
-foreach ($dir in $dirs) {
-  New-Item -ItemType Directory -Force -Path $dir | Out-Null
-  $keep = Join-Path $dir ".gitkeep"
-  if (-not (Test-Path $keep)) {
-    New-Item -ItemType File -Path $keep | Out-Null
+for (const directory of directories) {
+  const fullPath = join(repoRoot, directory);
+  mkdirSync(fullPath, { recursive: true });
+
+  const keepPath = join(fullPath, ".gitkeep");
+  if (!existsSync(keepPath)) {
+    closeSync(openSync(keepPath, "w"));
   }
 }
 
-Write-Host "skeleton directories ensured"
+console.log("skeleton directories ensured");

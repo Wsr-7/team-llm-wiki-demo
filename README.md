@@ -10,6 +10,7 @@ GitHub repo 是知识库权威层。正式知识位于 `wiki/` 和 `persons/`，
 - Agent 协议：[AGENTS.md](AGENTS.md)
 - Compile 规则：[prompts/compile-wiki.md](prompts/compile-wiki.md)
 - 页面 schema：[schemas/page.schema.json](schemas/page.schema.json)
+- Frontmatter 规则：[schemas/frontmatter.md](schemas/frontmatter.md)
 - Confidence 规则：[schemas/confidence-rules.md](schemas/confidence-rules.md)
 - 人员责任映射：[persons/](persons/)
 - Demo runbook：[wiki/runbooks/payment-failover.md](wiki/runbooks/payment-failover.md)
@@ -32,7 +33,7 @@ GitHub repo 是知识库权威层。正式知识位于 `wiki/` 和 `persons/`，
 - source manifest 模板
 - compile / ingest / query / lint / promote prompts
 - 最小 demo raw source、candidate、formal wiki page
-- 基础索引、日志和校验脚本
+- 基础索引、日志和 TypeScript 校验脚本
 
 暂不做：
 
@@ -53,3 +54,10 @@ owners:
 ```
 
 `staff:00000000` 仅作为 demo 占位符，正式使用前必须替换为真实员工 staff-id。
+
+## 本地校验
+
+```powershell
+npm run kb:check
+node scripts/kb-related.ts kb:runbook:payment-failover
+```

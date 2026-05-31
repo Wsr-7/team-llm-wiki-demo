@@ -8,24 +8,30 @@ confidence: 0.50
 visibility: internal
 owners:
   - staff:00000000
+maintainers: []
+reviewers: []
+knowledge_sources: []
 source_refs: []
 related: []
 tags: []
+verified_at:
 review_after:
+supersedes: []
+superseded_by: []
 created_at: YYYY-MM-DD
 updated_at: YYYY-MM-DD
 ---
 
 # <title>
 
-## 摘要
+## Summary
 
-## 边界
+## Boundaries
 
-## Owner
+## Owners
 
-## 依赖
+## Dependencies
 
-## 相关 runbook
+## Related Runbooks
 
-## 来源与证据
+## Sources And Evidence

@@ -1,8 +1,8 @@
 # Review Queue
 
-当前无阻断项。
+No blocking items are open.
 
-## Phase 0 Notes
+## Notes
 
-- `staff:00000000` 是 demo 占位符，正式使用前需要替换。
-- `payment-failover` 是 demo 页面，不代表真实生产流程。
+- `staff:00000000` is a demo placeholder and must be replaced before formal use.
+- `payment-failover` is a demo page and does not represent a real production procedure.

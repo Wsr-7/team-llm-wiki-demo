@@ -6,10 +6,19 @@
   "properties": {
     "id": { "type": "string" },
     "title": { "type": "string" },
-    "source_type": { "type": "string" },
-    "collector": { "pattern": "^staff:[0-9]{8}$" },
+    "source_type": {
+      "enum": ["interview", "meeting", "incident", "session", "confluence-mirror", "document"]
+    },
+    "collector": { "type": "string", "pattern": "^staff:[0-9]{8}$" },
     "collected_at": { "type": "string" },
     "sensitivity": { "enum": ["internal", "restricted", "confidential"] },
+    "origin": {
+      "type": "object",
+      "properties": {
+        "kind": { "type": "string" },
+        "url": { "type": "string" }
+      }
+    },
     "hash": { "type": "string" },
     "status": { "enum": ["captured", "ingested", "compiled", "archived"] }
   }

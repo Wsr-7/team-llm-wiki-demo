@@ -1,0 +1,14 @@
+{
+  "name": "team-kb-demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "kb:check": "node scripts/kb-check-staff-id.ts && node scripts/kb-check-person-files.ts && node scripts/kb-check-frontmatter.ts && node scripts/kb-check-source-refs.ts",
+    "kb:check:staff-id": "node scripts/kb-check-staff-id.ts",
+    "kb:check:persons": "node scripts/kb-check-person-files.ts",
+    "kb:check:frontmatter": "node scripts/kb-check-frontmatter.ts",
+    "kb:check:sources": "node scripts/kb-check-source-refs.ts",
+    "kb:related": "node scripts/kb-related.ts"
+  }
+}

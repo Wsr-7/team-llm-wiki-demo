@@ -8,9 +8,13 @@ confidence: 0.50
 visibility: internal
 owners:
   - staff:00000000
+maintainers: []
+reviewers: []
+knowledge_sources: []
 source_refs: []
 related: []
 tags: []
+verified_at:
 review_after:
 supersedes: []
 superseded_by: []
@@ -20,12 +24,12 @@ updated_at: YYYY-MM-DD
 
 # <title>
 
-## 决策
+## Decision
 
-## 背景
+## Context
 
-## 备选方案
+## Alternatives
 
-## 影响
+## Impact
 
-## 来源与证据
+## Sources And Evidence

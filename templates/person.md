@@ -11,10 +11,10 @@ promoted_knowledge: []
 
 # staff:00000000
 
-## 责任范围
+## Responsibilities
 
-## 维护页面
+## Maintained Pages
 
-## 已晋升知识贡献
+## Promoted Knowledge
 
-## 备注
+## Notes

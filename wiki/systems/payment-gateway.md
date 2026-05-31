@@ -8,29 +8,42 @@ confidence: 0.80
 visibility: internal
 owners:
   - staff:00000000
+maintainers:
+  - staff:00000000
+reviewers:
+  - staff:00000000
+knowledge_sources:
+  - staff:00000000
 source_refs:
   - raw:sources/2026-05-31-demo-payment-failover
 related:
   - kb:runbook:payment-failover
+tags:
+  - demo
+  - payment
+  - system
+verified_at:
+review_after: 2026-08-31
+supersedes: []
+superseded_by: []
 created_at: 2026-05-31
 updated_at: 2026-05-31
-review_after: 2026-08-31
 ---
 
 # Payment Gateway
 
-## 摘要
+## Summary
 
-Payment Gateway 是 Phase 0 demo 中的示例系统页面，用于验证 system -> runbook 的基础连接。
+Payment Gateway is a Phase 0 demo system page used to validate the basic system-to-runbook connection.
 
-## Owner
+## Owners
 
 - staff:00000000
 
-## 相关 runbook
+## Related Runbooks
 
 - [[kb:runbook:payment-failover]]
 
-## 来源与证据
+## Sources And Evidence
 
 - `raw:sources/2026-05-31-demo-payment-failover`

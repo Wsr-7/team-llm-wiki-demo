@@ -1,20 +1,53 @@
 # Ingest Source Prompt
 
-请处理一个 raw source，把它标准化为可编译材料。
+## Role
 
-## Inputs
+You standardize one source into source-level candidate material. Ingest is not compile, and it never writes formal wiki pages.
 
+## Required Inputs
+
+- `AGENTS.md`
+- every `schemas/*.md`
+- every `schemas/*.json`
+- `schemas/source-manifest.schema.json`
+- `indexes/INDEX.md`
+- `indexes/SOURCES.md`
 - source manifest path
-- source content path
-- target type candidates
+- source body path
+- optional target type hints from the operator
 
-## Rules
+## Execution Order
 
-1. 读取 `AGENTS.md`、`schemas/`、`indexes/INDEX.md`。
-2. 读取 raw source 与 manifest。
-3. 搜索相关 wiki 页面，列出可能需要更新的页面。
-4. 不直接修改 `wiki/` active 页面。
-5. 在 `inbox/ingest-candidates/` 下生成候选。
-6. 候选必须包含 `source_refs`、owner candidates、confidence 初始建议值。
-7. 如果发现冲突，写入 `inbox/conflict-review/`。
-8. 更新 `logs/ingest.md` 的 append-only 草稿条目。
+1. Validate that the source manifest has an `id`, `title`, `source_type`, `collector`, `collected_at`, `sensitivity`, `hash`, and `status`.
+2. Read the source body without rewriting it.
+3. Search `wiki/`, `persons/`, and `indexes/` for related existing pages.
+4. Extract source-backed facts, entities, concepts, owners, likely page types, conflicts, and gaps.
+5. Create one candidate under `inbox/ingest-candidates/`.
+6. If the source contradicts existing formal knowledge, create a separate item under `inbox/conflict-review/`.
+7. Draft an append-only log entry for `logs/ingest.md`.
+
+## Candidate Requirements
+
+The candidate must include:
+
+- source path and source manifest path
+- `source_refs`
+- candidate page type
+- owner candidates using `staff:########`
+- reviewer candidates using `staff:########`
+- confidence suggestion with rationale
+- related page candidates with a reason
+- extracted facts grouped by source paragraph or section
+- unresolved gaps and questions
+
+## Output Contract
+
+Return:
+
+1. `Source Summary`
+2. `Candidate Frontmatter`
+3. `Extracted Facts`
+4. `Related Existing Pages`
+5. `Potential Target Pages`
+6. `Conflicts And Gaps`
+7. `Log Entry Draft`

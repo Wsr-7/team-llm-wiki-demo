@@ -8,35 +8,47 @@ confidence: 0.80
 visibility: internal
 owners:
   - staff:00000000
+maintainers:
+  - staff:00000000
+reviewers:
+  - staff:00000000
+knowledge_sources:
+  - staff:00000000
 source_refs:
   - raw:sources/2026-05-31-demo-payment-failover
 related:
   - kb:runbook:payment-failover
   - kb:system:payment-gateway
+tags:
+  - demo
+  - overview
+verified_at:
+review_after: 2026-08-31
+supersedes: []
+superseded_by: []
 created_at: 2026-05-31
 updated_at: 2026-05-31
-review_after: 2026-08-31
 ---
 
 # Team Knowledge Base Overview
 
-## 摘要
+## Summary
 
-本 repo 用于验证 GitHub repo 驱动的团队 LLM Wiki 知识库方案。
+This repository validates a GitHub-repo-driven team LLM Wiki workflow.
 
-## 当前结论
+## Current Conclusions
 
-- `raw/` 保存来源。
-- `inbox/` 保存 AI 或人工整理出的候选知识。
-- `wiki/` 保存正式团队知识。
-- `persons/` 使用 8 位 staff-id 建立责任映射。
-- `indexes/`、`logs/`、`graph/` 是可重建或审计辅助层。
+- `raw/` stores source material.
+- `inbox/` stores AI-generated or manually drafted candidates.
+- `wiki/` stores formal team knowledge.
+- `persons/` maps responsibility through 8-digit staff IDs.
+- `indexes/`, `logs/`, and `graph/` provide rebuildable navigation and audit support.
 
-## 相关页面
+## Related Pages
 
 - [[kb:runbook:payment-failover]]
 - [[kb:system:payment-gateway]]
 
-## 来源与证据
+## Sources And Evidence
 
 - `raw:sources/2026-05-31-demo-payment-failover`

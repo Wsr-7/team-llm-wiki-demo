@@ -12,6 +12,8 @@
     "visibility",
     "owners",
     "source_refs",
+    "related",
+    "tags",
     "created_at",
     "updated_at"
   ],
@@ -49,16 +51,20 @@
     },
     "owners": {
       "type": "array",
-      "items": { "pattern": "^staff:[0-9]{8}$" },
+      "items": { "type": "string", "pattern": "^staff:[0-9]{8}$" },
       "minItems": 1
     },
     "maintainers": {
       "type": "array",
-      "items": { "pattern": "^staff:[0-9]{8}$" }
+      "items": { "type": "string", "pattern": "^staff:[0-9]{8}$" }
     },
     "reviewers": {
       "type": "array",
-      "items": { "pattern": "^staff:[0-9]{8}$" }
+      "items": { "type": "string", "pattern": "^staff:[0-9]{8}$" }
+    },
+    "knowledge_sources": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^staff:[0-9]{8}$" }
     },
     "source_refs": {
       "type": "array",
@@ -69,8 +75,53 @@
       "type": "array",
       "items": { "type": "string" }
     },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "verified_at": {
+      "type": ["string", "null"]
+    },
     "review_after": {
       "type": ["string", "null"]
+    },
+    "supersedes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "superseded_by": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "mirror_provider": { "type": "string" },
+    "remote_id": { "type": "string" },
+    "remote_url": { "type": "string" },
+    "remote_version": { "type": "string" },
+    "remote_hash": { "type": "string" },
+    "synced_at": { "type": "string" },
+    "collector": { "type": "string", "pattern": "^staff:[0-9]{8}$" },
+    "mirror_status": { "enum": ["synced", "stale", "failed", "archived"] }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "type": { "const": "mirrored" } },
+        "required": ["type"]
+      },
+      "then": {
+        "required": [
+          "mirror_provider",
+          "remote_id",
+          "remote_url",
+          "remote_version",
+          "remote_hash",
+          "synced_at",
+          "collector",
+          "mirror_status"
+        ]
+      }
     }
-  }
+  ]
 }

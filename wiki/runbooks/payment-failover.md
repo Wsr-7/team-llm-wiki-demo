@@ -32,47 +32,47 @@ updated_at: 2026-05-31
 
 # Payment Failover
 
-## 摘要
+## Summary
 
-这是 Phase 0 demo runbook，用于验证 `raw -> inbox -> wiki -> index/log` 的最小闭环。
+This Phase 0 demo runbook validates the minimum `raw -> inbox -> wiki -> index/log` loop.
 
-## 适用范围
+## Scope
 
-仅用于 demo，不代表真实生产系统操作流程。
+Demo only. This page does not represent a real production operating procedure.
 
-## 前置条件
+## Prerequisites
 
-- 已确认 Payment Gateway 不健康。
-- 已确认问题可能来自上游 provider。
-- 已联系 owner：staff:00000000。
+- Payment Gateway health has been checked.
+- The issue may involve an upstream provider.
+- The owner has been contacted: staff:00000000.
 
-## 操作步骤
+## Procedure
 
-1. 检查 Payment Gateway 的服务健康状态。
-2. 检查最近 deploy 与错误率。
-3. 确认是否为上游 provider 故障。
-4. 如果故障确认，执行 owner 批准的 failover 操作。
-5. 记录事件时间线。
-6. 事后更新 runbook。
+1. Check Payment Gateway service health.
+2. Check recent deploys and error rate.
+3. Confirm whether the upstream provider is failing.
+4. If the failure is confirmed, execute the failover action approved by the owner.
+5. Record the incident timeline.
+6. Update the runbook after review.
 
-## 验证方式
+## Verification
 
-- 错误率恢复到正常范围。
-- 新交易成功率恢复。
-- owner 确认 failover 状态。
+- Error rate returns to the normal range.
+- New transaction success rate recovers.
+- The owner confirms the failover state.
 
-## 回滚步骤
+## Rollback
 
-[!UNCERTAIN] Demo source 未提供真实回滚步骤，正式使用前必须由 owner 补齐。
+[!UNCERTAIN] The demo source does not include a real rollback procedure. The owner must provide it before formal use.
 
-## 相关页面
+## Related Pages
 
 - [[kb:system:payment-gateway]]
 
-## 来源与证据
+## Sources And Evidence
 
 - `raw:sources/2026-05-31-demo-payment-failover`
 
-## 维护记录
+## Maintenance Notes
 
 - 2026-05-31: Phase 0 demo bootstrap.

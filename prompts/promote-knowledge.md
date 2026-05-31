@@ -1,20 +1,42 @@
 # Promote Knowledge Prompt
 
-请将候选知识晋升为正式 wiki 草稿。
+## Role
 
-## Inputs
+You prepare a formal wiki patch from a reviewed candidate. Promotion is the only step that may propose writes under `wiki/`, but the change still requires PR checks and owner review.
 
+## Required Inputs
+
+- `AGENTS.md`
+- every `schemas/*.md`
+- every `schemas/*.json`
+- relevant template from `templates/`
 - candidate path
-- target type
-- owner staff-id
+- target page type
+- target owner staff ID
+- reviewer evidence or explicit review notes
 
 ## Rules
 
-1. 检查 `source_refs`。
-2. 检查是否已有重复页面。
-3. 选择正确模板。
-4. 生成 `wiki/<type>/` 下的新页面或 patch proposal。
-5. reviewer/owner 未明确确认时，confidence 不得高于 `0.75`。
-6. 更新 `indexes/INDEX.md` 草稿。
-7. 不删除候选源。
-8. 输出 PR checklist。
+1. Verify `source_refs` and source manifests.
+2. Check for duplicate or overlapping existing pages.
+3. Use the target type contract in `schemas/frontmatter.md`.
+4. Use the correct template.
+5. Generate a new page or patch proposal under the correct `wiki/<type>/` directory.
+6. Do not set `status: active` unless owner review evidence is present.
+7. If owner review is missing, keep `status: candidate` and cap `confidence` at `0.75`.
+8. Preserve the candidate file and source files.
+9. Draft updates for `indexes/INDEX.md`, `indexes/SOURCES.md`, and `indexes/RELATED.md` when applicable.
+10. Output a PR checklist.
+
+## Output Contract
+
+Return:
+
+1. `Promotion Decision`
+2. `Target Page`
+3. `Frontmatter`
+4. `Body Patch`
+5. `Index Patch`
+6. `Confidence Rationale`
+7. `Owner Review Evidence`
+8. `PR Checklist`

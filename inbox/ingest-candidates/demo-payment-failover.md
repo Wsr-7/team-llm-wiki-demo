@@ -18,27 +18,27 @@ updated_at: 2026-05-31
 
 # Payment Failover Candidate
 
-## 候选摘要
+## Candidate Summary
 
-当 Payment Gateway 的上游 provider 失败时，operator 需要先确认故障范围，再执行 failover，并记录事件时间线。
+When the upstream provider for Payment Gateway fails, the operator should confirm the failure scope, execute the reviewed failover process, and record the incident timeline.
 
-## 建议进入的正式目录
+## Suggested Formal Target
 
 `wiki/runbooks/payment-failover.md`
 
-## 可能相关页面
+## Related Page Candidates
 
 - `kb:system:payment-gateway` - reason: direct-wikilink candidate
 
-## 不确定点
+## Open Questions
 
-- 真实 provider 切换命令尚未提供。
-- 验证方式需要 owner 确认。
+- The real provider switch command is not included in the demo source.
+- The verification process requires owner confirmation.
 
-## 建议 reviewer
+## Suggested Reviewers
 
 - staff:00000000
 
-## 来源摘录
+## Source Excerpts
 
 - `raw:sources/2026-05-31-demo-payment-failover`

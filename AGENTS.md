@@ -1,41 +1,47 @@
 # Team KB Agent Protocol
 
-## 权威层
+## Authority Layer
 
-GitHub repo 是知识库权威层。正式知识位于 `wiki/` 和 `persons/`。`indexes/`、`graph/`、`exports/`、`site/` 是派生层或辅助层。
+The GitHub repository is the authority layer for the knowledge base. Formal knowledge lives under `wiki/` and `persons/`. The `indexes/`, `graph/`, `exports/`, and `site/` directories are derived or auxiliary layers.
 
-## 身份规则
+## Identity Rules
 
-所有员工引用必须使用 `staff:########`。禁止使用姓名、邮箱、GitHub username、拼音作为人员主键。
+All employee references must use `staff:########`. Names, email addresses, GitHub usernames, aliases, and pinyin are not valid person identifiers.
 
-## 写入规则
+## Write Rules
 
-1. `raw/` 是原始来源，不修改原文。
-2. AI 生成内容默认写入 `inbox/`。
-3. `wiki/` 和 `persons/` 的正式修改必须通过 PR。
-4. 每次写入必须包含 `source_refs`。
-5. 候选页必须包含 `status`、`review_state`、`confidence`、`owners` 或 `owner_candidates`。
-6. Confluence 等外部镜像先进 `confluence-mirror/`，要晋升必须进入 `inbox/sync-review/`。
-7. 不得把 mirror、raw、inbox 内容直接混入正式主搜索。
+1. `raw/` stores source material. Do not rewrite the original source.
+2. AI-generated material must start in `inbox/`.
+3. Formal changes under `wiki/` and `persons/` must go through PR review.
+4. Every generated or promoted knowledge item must include `source_refs`.
+5. Candidate pages must include `status`, `review_state`, `confidence`, and either `owners` or `owner_candidates`.
+6. Confluence mirror snapshots must be written to `confluence-mirror/`.
+7. Mirror snapshots from other external systems must use a source-specific `*-mirror/` directory when such a mirror root exists. If no mirror root exists yet, store the material as a normal captured source under `raw/sources/` until the mirror contract is added.
+8. Mirror, raw, and inbox content must not be treated as formal wiki knowledge.
 
-## 查询规则
+## Query Rules
 
-1. 先读 `indexes/INDEX.md`。
-2. 再检索 `wiki/`、`persons/`、`indexes/`。
-3. 回答必须引用页面路径或知识 ID。
-4. 对 `stale`、`superseded`、`disputed` 或低 confidence 页面必须显式说明。
-5. 如果知识库没有答案，输出 unknown，并建议创建 candidate。
+1. Read `indexes/INDEX.md` first.
+2. Search `wiki/`, `persons/`, and `indexes/`.
+3. Read the most relevant pages before answering. Do not answer from snippets alone.
+4. Cite page paths or knowledge IDs in the answer.
+5. Explicitly call out `stale`, `superseded`, `disputed`, or low-confidence pages.
+6. If the knowledge base has no answer, return `unknown` and suggest a candidate page or source to add.
 
-## Compile 规则
+## Ingest, Compile, And Promote
 
-`ingest-source` 只把单个来源标准化为候选材料。`compile-wiki` 把来源、候选和已有 wiki 编译成可审阅的 wiki diff。真正进入 `wiki/` 只能通过 `promote-knowledge`、PR、CI 和 owner review。
+`ingest-source` standardizes one source into source-level candidate material. It writes to `inbox/ingest-candidates/` and never writes to `wiki/`.
 
-## Related 规则
+`compile-wiki` reads raw sources, mirror snapshots, ingest candidates, existing wiki pages, all schema documents, templates, and indexes. It creates reviewable wiki candidates or patch proposals under `inbox/compile-candidates/`, plus conflict or sync review items when needed.
 
-Phase 1 只允许三种 related 信号：
+`promote-knowledge` is the only prompt allowed to prepare a formal `wiki/` patch. The patch still requires PR checks and owner review before it becomes accepted knowledge.
+
+## Related Rules
+
+Phase 1 related-page discovery is limited to three explainable signals:
 
 - direct wikilink
 - backlink
 - shared source_refs
 
-每条 related 必须输出 reason。
+Each related result must include its reason.
