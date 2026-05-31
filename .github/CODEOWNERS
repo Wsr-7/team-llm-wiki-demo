@@ -1,0 +1,11 @@
+# Phase 0 demo CODEOWNERS.
+# Replace @Wsr-7 with team or staff-id mapping once GitHub teams are ready.
+
+* @Wsr-7
+
+AGENTS.md @Wsr-7
+schemas/ @Wsr-7
+templates/ @Wsr-7
+prompts/ @Wsr-7
+persons/ @Wsr-7
+wiki/ @Wsr-7

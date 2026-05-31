@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Team KB Source Manifest",
+  "type": "object",
+  "required": ["id", "title", "source_type", "collector", "collected_at", "sensitivity", "hash", "status"],
+  "properties": {
+    "id": { "type": "string" },
+    "title": { "type": "string" },
+    "source_type": { "type": "string" },
+    "collector": { "pattern": "^staff:[0-9]{8}$" },
+    "collected_at": { "type": "string" },
+    "sensitivity": { "enum": ["internal", "restricted", "confidential"] },
+    "hash": { "type": "string" },
+    "status": { "enum": ["captured", "ingested", "compiled", "archived"] }
+  }
+}
