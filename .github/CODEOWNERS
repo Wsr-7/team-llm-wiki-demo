@@ -1,0 +1,15 @@
+# Default knowledge admins
+* @org/knowledge-admins
+
+# Schemas and prompts are governed centrally
+/AGENTS.md @org/knowledge-admins
+/schemas/ @org/knowledge-admins
+/templates/ @org/knowledge-admins
+/prompts/ @org/knowledge-admins
+
+# Personal profiles need admin review
+/personal/*/profile.md @org/knowledge-admins
+
+# Domain examples
+/wiki/systems/payment/ @org/payment-platform
+/wiki/runbooks/payment/ @org/payment-platform

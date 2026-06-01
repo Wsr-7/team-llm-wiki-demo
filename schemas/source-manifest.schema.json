@@ -1,0 +1,15 @@
+{
+  "title": "Raw source manifest",
+  "type": "object",
+  "required": ["id", "title", "source_type", "collector", "collected_at", "sensitivity", "hash", "status"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^raw:[a-z0-9-]+:[a-z0-9-]+" },
+    "title": { "type": "string" },
+    "source_type": { "type": "string", "enum": ["doc", "runbook", "incident", "meeting", "code-chunk", "external", "confluence"] },
+    "collector": { "type": "string", "pattern": "^staff:[0-9]{8}$" },
+    "collected_at": { "type": "string" },
+    "sensitivity": { "type": "string", "enum": ["internal", "restricted", "confidential"] },
+    "hash": { "type": "string" },
+    "status": { "type": "string", "enum": ["captured", "superseded", "rejected"] }
+  }
+}
