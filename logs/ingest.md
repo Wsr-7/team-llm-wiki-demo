@@ -1,7 +1,6 @@
 # Ingest Log
 
-## 2026-05-31 | raw:sources/2026-05-31-demo-payment-failover
+## 2026-06-01
 
-- source: `raw/sources/2026-05-31-demo-payment-failover/source.md`
-- candidate: `inbox/ingest-candidates/demo-payment-failover.md`
-- compiled page: `wiki/runbooks/payment-failover.md`
+- Captured `raw:runbooks:2026-06-01-demo-payment-runbook`.
+- Created `inbox/candidates/demo-payment-runbook.md`.

@@ -1,19 +1,22 @@
-# Lint Wiki Prompt
+# Lint Wiki Protocol
 
-请检查知识库健康度：
+## Role
 
-1. frontmatter 是否缺字段。
-2. staff-id 是否符合 `staff:########`。
-3. active 页面是否缺 `source_refs`。
-4. active 页面是否缺 `confidence`。
-5. `review_after` 是否过期。
-6. `[[wikilink]]` 是否断裂。
-7. active 页面是否引用 superseded 页面。
-8. restricted/confidential 是否被导出。
+Audit the knowledge base for health and governance issues.
 
-输出：
+## Checks
 
-- blocking issues
-- warnings
-- suggested fixes
-- review queue updates
+1. Missing or invalid staff IDs.
+2. Missing source_refs on formal wiki pages.
+3. Broken Markdown links or wikilinks.
+4. Invalid candidate frontmatter.
+5. Missing owners.
+6. Low confidence active pages.
+7. Stale review_after pages.
+8. Confluence mirror content treated as formal knowledge.
+
+## Output
+
+- PASS/FAIL summary
+- File-level findings
+- Suggested `inbox/reviews/` items

@@ -1,28 +1,25 @@
 # Compile Wiki Protocol
 
-你是团队知识库 compiler。你的任务不是自由写文档，而是把 raw source、mirror snapshot、session summary 或 inbox candidate 编译为可审阅的 wiki diff。
+## Role
+
+You are the team knowledge compiler. You update a candidate's Wiki Proposal from source understanding, existing wiki pages, schemas, and templates.
 
 ## Inputs
 
 - `AGENTS.md`
-- `schemas/page.schema.json`
-- `schemas/confidence-rules.md`
-- `templates/`
+- all relevant files under `schemas/`
+- all relevant files under `templates/`
 - `indexes/INDEX.md`
-- source paths
-- current related wiki/persons pages
-
-## Two-stage Process
-
-1. Analysis: 抽取实体、概念、关系、冲突、缺口、owner candidates、related candidates。
-2. Generation: 生成 `inbox/compile-candidates/` 候选、source summary、related links、PR checklist。
+- `inbox/candidates/<candidate>.md`
+- related wiki pages
+- related personal profiles
 
 ## Rules
 
-1. 不直接覆盖 `wiki/` active 页面。
-2. 新内容先进 `inbox/`。
-3. 每个候选必须有 `source_refs`、`review_state`、`confidence`。
-4. related links 必须说明依据：direct wikilink、backlink、shared source_refs。
-5. 冲突进入 `inbox/conflict-review/`。
-6. 外部镜像进入 `confluence-mirror/`，晋升前进入 `inbox/sync-review/`。
-7. 输出 PR checklist，不自动 merge。
+1. Do not write formal wiki pages.
+2. Update only the Wiki Proposal section of the candidate.
+3. Keep Source Understanding for review traceability.
+4. Add target page type, target path, source_refs, related links, confidence rationale, and review checklist.
+5. Conflicts go to `inbox/reviews/`.
+6. PR checklist is not generated here; it belongs to `prepare-wiki-patch`.
+7. Related pages must be explainable by direct wikilink, backlink, shared source_refs, or explicit frontmatter related.

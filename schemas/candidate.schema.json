@@ -1,0 +1,15 @@
+{
+  "title": "Inbox candidate frontmatter",
+  "type": "object",
+  "required": ["id", "candidate_origin", "candidate_intent", "candidate_status", "source_refs", "owner_candidates", "created_at", "updated_at"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^candidate:[a-z0-9-]+" },
+    "candidate_origin": { "type": "string", "enum": ["raw", "personal", "mirror", "query", "manual"] },
+    "candidate_intent": { "type": "string", "enum": ["ingest", "compile", "promotion", "sync"] },
+    "candidate_status": { "type": "string", "enum": ["proposed", "in_review", "promoted", "rejected", "superseded"] },
+    "source_refs": { "type": "array", "items": { "type": "string" } },
+    "owner_candidates": { "type": "array", "items": { "type": "string", "pattern": "^staff:[0-9]{8}$" } },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" }
+  }
+}

@@ -1,12 +1,14 @@
-# Sync Confluence Prompt
+# Sync Confluence Protocol
 
-Confluence 同步是无状态、中立、手动触发的单向 mirror 流程。
+## Role
+
+Convert explicitly selected Confluence pages into one-way mirror snapshots.
 
 ## Rules
 
-1. sync scope 由调用者提供，不由知识库裁决哪些 page 可同步。
-2. 只读取 Confluence，不写回 Confluence。
-3. 写入 `confluence-mirror/`。
-4. 记录 page id、version、url、hash、collector、synced time。
-5. 默认不进入正式主搜索。
-6. 如果内容有长期价值，生成 `inbox/sync-review/` 候选。
+1. Sync scope is supplied by the caller; this repo does not decide which Confluence pages are allowed.
+2. Do not write formal wiki pages.
+3. Write Confluence snapshots under `confluence-mirror/`.
+4. Preserve page id, title, version, URL, hash, collector, collected_at, and sensitivity.
+5. Optional formalization goes through `inbox/candidates/` with `candidate_origin: mirror` and `candidate_intent: sync`.
+6. No automatic sync and no bidirectional sync in Phase 0.

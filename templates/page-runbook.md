@@ -10,7 +10,6 @@ owners:
   - staff:00000000
 maintainers: []
 reviewers: []
-knowledge_sources: []
 source_refs: []
 related: []
 tags: []
@@ -24,22 +23,20 @@ updated_at: YYYY-MM-DD
 
 # <title>
 
-## 摘要
+## Summary
 
-## 适用范围
+## Scope
 
-## 前置条件
+## Prerequisites
 
-## 操作步骤
+## Procedure
 
-## 验证方式
+## Verification
 
-## 回滚步骤
+## Rollback
 
-## 常见问题
+## Related Pages
 
-## 相关页面
+## Sources And Evidence
 
-## 来源与证据
-
-## 维护记录
+## Maintenance Notes

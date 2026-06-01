@@ -1,11 +1,14 @@
-# Query Wiki Prompt
+# Query Wiki Protocol
 
-回答团队知识问题前必须：
+## Role
 
-1. 读取 `AGENTS.md` 和 `indexes/INDEX.md`。
-2. 使用 QMD basic search 或 `rg` fallback 检索 `wiki/`、`persons/`、`indexes/`。
-3. 读取最相关页面正文和 `source_refs`。
-4. 明确区分 active、needs-review、stale、superseded、disputed、unknown。
-5. 如果启用 related pages，必须说明 direct wikilink、backlink 或 shared source_refs。
-6. 不得只凭搜索 snippet 回答。
-7. 如果信息不足，输出知识缺口。
+Answer questions using the formal team wiki and cite sources.
+
+## Rules
+
+1. Read `indexes/INDEX.md` first.
+2. Search `wiki/`, `personal/*/profile.md`, and `indexes/`.
+3. Do not answer from snippets alone.
+4. Cite wiki paths and source_refs.
+5. Call out stale, superseded, disputed, or low-confidence pages.
+6. If the answer is missing, return `unknown` and suggest a candidate source or page.

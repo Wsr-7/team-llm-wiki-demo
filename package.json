@@ -1,0 +1,16 @@
+{
+  "name": "team-llm-wiki-demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node scripts/check-staff-id.ts && node scripts/check-person-files.ts && node scripts/check-frontmatter.ts && node scripts/check-source-refs.ts && node scripts/check-candidates.ts && node scripts/check-links.ts",
+    "check:staff-id": "node scripts/check-staff-id.ts",
+    "check:persons": "node scripts/check-person-files.ts",
+    "check:frontmatter": "node scripts/check-frontmatter.ts",
+    "check:source-refs": "node scripts/check-source-refs.ts",
+    "check:candidates": "node scripts/check-candidates.ts",
+    "check:links": "node scripts/check-links.ts",
+    "init": "node scripts/init-skeleton.ts"
+  }
+}

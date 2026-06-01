@@ -1,21 +1,23 @@
-# Team KB Index
+# Knowledge Index
 
 ## Overview
 
-- [Team KB Overview](../wiki/overview/team-kb-overview.md)
+- [Team LLM Wiki Overview](../wiki/overview/team-llm-wiki-overview.md) - `kb:overview:team-llm-wiki`
 
 ## Systems
 
-- [Payment Gateway](../wiki/systems/payment-gateway.md)
+- [Payment Gateway](../wiki/systems/payment/payment-gateway.md) - `kb:system:payment-gateway`
 
 ## Runbooks
 
-- [Payment Failover](../wiki/runbooks/payment-failover.md)
+- [Demo Payment Failover Runbook](../wiki/runbooks/payment/demo-payment-runbook.md) - `kb:runbook:demo-payment-runbook`
 
-## Persons
+## Candidates
 
-- [Demo placeholder staff](../persons/00000000.md)
+- [Demo Payment Runbook Candidate](../inbox/candidates/demo-payment-runbook.md)
 
-## Inbox
+## Staff Profiles
 
-- [Demo payment failover candidate](../inbox/ingest-candidates/demo-payment-failover.md)
+- [staff:00000000](../personal/00000000/profile.md)
+- [staff:12345678](../personal/12345678/profile.md)
+- [staff:23456789](../personal/23456789/profile.md)

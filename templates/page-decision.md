@@ -10,22 +10,18 @@ owners:
   - staff:00000000
 source_refs: []
 related: []
-tags: []
-review_after:
-supersedes: []
-superseded_by: []
 created_at: YYYY-MM-DD
 updated_at: YYYY-MM-DD
 ---
 
 # <title>
 
-## 决策
+## Context
 
-## 背景
+## Decision
 
-## 备选方案
+## Consequences
 
-## 影响
+## Alternatives Considered
 
-## 来源与证据
+## Sources And Evidence

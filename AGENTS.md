@@ -1,41 +1,100 @@
-# Team KB Agent Protocol
+# Team LLM Wiki Agent Protocol
 
-## 权威层
+## Schema Pack
 
-GitHub repo 是知识库权威层。正式知识位于 `wiki/` 和 `persons/`。`indexes/`、`graph/`、`exports/`、`site/` 是派生层或辅助层。
+This repo uses `AGENTS.md` + `schemas/` + `templates/` + `prompts/` as its Schema Pack.
 
-## 身份规则
+Read these files before creating or changing knowledge:
 
-所有员工引用必须使用 `staff:########`。禁止使用姓名、邮箱、GitHub username、拼音作为人员主键。
+1. `AGENTS.md`
+2. `schemas/README.md`
+3. `schemas/frontmatter.md`
+4. `schemas/confidence-rules.md`
+5. Relevant files under `templates/`
+6. Relevant files under `prompts/`
+7. `indexes/INDEX.md`
 
-## 写入规则
+## Authority Layer
 
-1. `raw/` 是原始来源，不修改原文。
-2. AI 生成内容默认写入 `inbox/`。
-3. `wiki/` 和 `persons/` 的正式修改必须通过 PR。
-4. 每次写入必须包含 `source_refs`。
-5. 候选页必须包含 `status`、`review_state`、`confidence`、`owners` 或 `owner_candidates`。
-6. Confluence 等外部镜像先进 `confluence-mirror/`，要晋升必须进入 `inbox/sync-review/`。
-7. 不得把 mirror、raw、inbox 内容直接混入正式主搜索。
+The GitHub repository is the authority layer. Formal team knowledge lives under `wiki/`.
 
-## 查询规则
+Layer boundaries:
 
-1. 先读 `indexes/INDEX.md`。
-2. 再检索 `wiki/`、`persons/`、`indexes/`。
-3. 回答必须引用页面路径或知识 ID。
-4. 对 `stale`、`superseded`、`disputed` 或低 confidence 页面必须显式说明。
-5. 如果知识库没有答案，输出 unknown，并建议创建 candidate。
+- `raw/`: immutable source evidence written by humans or import tools.
+- `personal/<staff-id>/`: personal profile and personal knowledge space, not team truth.
+- `inbox/candidates/`: AI-generated or human-proposed candidate knowledge.
+- `inbox/reviews/`: review queues for conflicts, stale pages, missing owner, low confidence, and broken links.
+- `wiki/`: curated formal team knowledge.
+- `confluence-mirror/`: one-way Confluence mirror snapshots, not formal knowledge.
+- `indexes/`: human-readable navigation and review queue summaries.
+- `graph/`: rebuildable graph sidecars in later phases.
+- `logs/`: append-only operation logs.
 
-## Compile 规则
+Do not create `site/` or `exports/` in Phase 0.
 
-`ingest-source` 只把单个来源标准化为候选材料。`compile-wiki` 把来源、候选和已有 wiki 编译成可审阅的 wiki diff。真正进入 `wiki/` 只能通过 `promote-knowledge`、PR、CI 和 owner review。
+## Identity Rules
 
-## Related 规则
+All employee references must use `staff:########`.
 
-Phase 1 只允许三种 related 信号：
+Do not use names, email addresses, GitHub usernames, aliases, or pinyin as canonical employee identifiers.
 
-- direct wikilink
+## Write Rules
+
+1. Do not rewrite original source content under `raw/`.
+2. New source material uses `raw/<category>/<yyyy-mm-dd>-<slug>/manifest.md` and `source.md`.
+3. AI-generated material starts in `inbox/candidates/`.
+4. `personal/<staff-id>/raw/` and `personal/<staff-id>/wiki/` are not formal team knowledge.
+5. Personal knowledge must move through `inbox/candidates/` before it can become formal wiki knowledge.
+6. Formal `wiki/` changes must be prepared by `prompts/prepare-wiki-patch.md`, then reviewed in a PR.
+7. Every formal wiki page requires `source_refs`.
+8. Confluence mirror snapshots must be written to `confluence-mirror/`.
+9. Mirror, raw, personal, and inbox content must not be treated as formal wiki knowledge.
+
+## Prompt Registry
+
+- `prompts/ingest-source.md`: source -> Source Understanding.
+- `prompts/compile-wiki.md`: Source Understanding -> Wiki Proposal.
+- `prompts/prepare-wiki-patch.md`: Wiki Proposal -> PR-ready patch.
+- `prompts/query-wiki.md`: question -> cited answer.
+- `prompts/lint-wiki.md`: wiki health audit.
+- `prompts/sync-confluence.md`: one-way Confluence mirror.
+
+## Candidate Contract
+
+Candidates live in `inbox/candidates/` and must include:
+
+```yaml
+candidate_origin: raw | personal | mirror | query | manual
+candidate_intent: ingest | compile | promotion | sync
+candidate_status: proposed | in_review | promoted | rejected | superseded
+```
+
+Recommended candidate sections:
+
+```md
+## Source Understanding
+## Wiki Proposal
+## Review Notes
+## Decision Log
+```
+
+## Query Rules
+
+1. Read `indexes/INDEX.md` first.
+2. Search `wiki/`, `personal/*/profile.md`, and `indexes/`.
+3. Do not answer from snippets alone.
+4. Cite page paths or knowledge IDs.
+5. Explicitly call out stale, superseded, disputed, or low-confidence pages.
+6. If there is no answer, return `unknown` and suggest a source or candidate to add.
+
+## Related Rules
+
+Phase 0/1 related-page discovery is limited to explainable signals:
+
+- direct wiki links written as double-bracket page paths
 - backlink
-- shared source_refs
+- shared `source_refs`
+- explicit frontmatter `related`
 
-每条 related 必须输出 reason。
+Each related result must include its reason.
+

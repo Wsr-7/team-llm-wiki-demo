@@ -1,8 +1,8 @@
 # Review Queue
 
-当前无阻断项。
+No blocking Phase 0 review items.
 
-## Phase 0 Notes
+## Demo Follow-ups
 
-- `staff:00000000` 是 demo 占位符，正式使用前需要替换。
-- `payment-failover` 是 demo 页面，不代表真实生产流程。
+- Replace demo staff IDs with real staff IDs before production use.
+- Replace demo runbook source with real runbook or incident source before production use.

@@ -28,7 +28,9 @@ Use staff-id format only:
 - [ ] All staff references use `staff:########`.
 - [ ] Active wiki pages have `source_refs`.
 - [ ] Active wiki pages have page-level `confidence`.
+- [ ] Page frontmatter follows `schemas/frontmatter.md` and `schemas/page.schema.json`.
 - [ ] `review_after` is present or intentionally omitted.
 - [ ] Related pages include a reason: direct-wikilink, backlink, or shared-source.
 - [ ] No raw/inbox/mirror content is treated as formal wiki knowledge.
 - [ ] Sensitive content is not exported by default.
+- [ ] TypeScript checks pass with `npm run check`.

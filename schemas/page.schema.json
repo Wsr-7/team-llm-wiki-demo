@@ -1,76 +1,19 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Team KB Page",
+  "title": "Team wiki page frontmatter",
   "type": "object",
-  "required": [
-    "id",
-    "title",
-    "type",
-    "status",
-    "review_state",
-    "confidence",
-    "visibility",
-    "owners",
-    "source_refs",
-    "created_at",
-    "updated_at"
-  ],
+  "required": ["id", "title", "type", "status", "review_state", "confidence", "visibility", "owners", "source_refs", "related", "created_at", "updated_at"],
   "properties": {
-    "id": { "type": "string" },
+    "id": { "type": "string", "pattern": "^kb:[a-z0-9-]+:[a-z0-9-]+" },
     "title": { "type": "string" },
-    "type": {
-      "enum": [
-        "overview",
-        "glossary",
-        "concept",
-        "team",
-        "project",
-        "system",
-        "practice",
-        "runbook",
-        "decision",
-        "learning",
-        "mirrored"
-      ]
-    },
-    "status": {
-      "enum": ["draft", "candidate", "active", "stale", "superseded", "archived"]
-    },
-    "review_state": {
-      "enum": ["unreviewed", "reviewed", "needs-review", "disputed"]
-    },
-    "confidence": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 1
-    },
-    "visibility": {
-      "enum": ["internal", "restricted", "confidential"]
-    },
-    "owners": {
-      "type": "array",
-      "items": { "pattern": "^staff:[0-9]{8}$" },
-      "minItems": 1
-    },
-    "maintainers": {
-      "type": "array",
-      "items": { "pattern": "^staff:[0-9]{8}$" }
-    },
-    "reviewers": {
-      "type": "array",
-      "items": { "pattern": "^staff:[0-9]{8}$" }
-    },
-    "source_refs": {
-      "type": "array",
-      "items": { "type": "string" },
-      "minItems": 1
-    },
-    "related": {
-      "type": "array",
-      "items": { "type": "string" }
-    },
-    "review_after": {
-      "type": ["string", "null"]
-    }
+    "type": { "type": "string", "enum": ["overview", "glossary", "concept", "team", "project", "system", "practice", "runbook", "decision", "learning", "mirrored"] },
+    "status": { "type": "string", "enum": ["draft", "candidate", "active", "stale", "superseded", "archived"] },
+    "review_state": { "type": "string", "enum": ["unreviewed", "reviewed", "needs-review", "disputed"] },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "visibility": { "type": "string", "enum": ["internal", "restricted", "confidential"] },
+    "owners": { "type": "array", "items": { "type": "string", "pattern": "^staff:[0-9]{8}$" } },
+    "source_refs": { "type": "array", "items": { "type": "string" } },
+    "related": { "type": "array", "items": { "type": "string" } },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" }
   }
 }

@@ -1,21 +1,13 @@
-# Branch Protection Recommendation
+# Branch Protection Notes
 
-Phase 0 cannot enforce GitHub branch protection from the repo files alone, but the recommended rule for `main` is:
+Phase 0 records the intended governance model. Actual branch protection is configured in GitHub when the team is ready.
 
-- Require pull request before merging.
-- Require at least one approval.
-- Require CODEOWNERS review.
-- Require status checks once Phase 2 CI exists.
-- Block force pushes.
-- Block direct pushes to `main`.
-- Require conversation resolution before merge.
+Recommended rules for `main`:
 
-Until Phase 2 CI exists, reviewers should manually run:
+1. Require pull requests before merging.
+2. Require CODEOWNERS review.
+3. Require conversation resolution.
+4. Require PR checks after Phase 2 chooses GitHub Actions or Jenkins.
+5. Restrict force pushes.
 
-```powershell
-./scripts/kb-check-staff-id.ps1
-./scripts/kb-check-person-files.ps1
-./scripts/kb-check-frontmatter.ps1
-./scripts/kb-check-source-refs.ps1
-./scripts/kb-related.ps1 kb:runbook:payment-failover
-```
+CI route is intentionally undecided in Phase 0. Phase 2 keeps both GitHub Actions and Jenkins designs.

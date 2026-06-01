@@ -1,21 +1,21 @@
 ---
-id: raw:sources/YYYY-MM-DD-<slug>
-title: "<source title>"
-source_type: interview | meeting | incident | session | confluence-mirror | document
+id: raw:<category>:<yyyy-mm-dd-slug>
+title: "<title>"
+source_type: doc
 collector: staff:00000000
 collected_at: YYYY-MM-DD
 sensitivity: internal
-origin:
-  kind: manual
-  url: ""
-hash: ""
+hash: "sha256:<hash>"
 status: captured
+origin:
+  system: manual
+  url: ""
 ---
 
 # Source Manifest
 
-## Summary
+## Source File
 
-## Collection Notes
+`source.md`
 
-## Sensitive Content Check
+## Notes

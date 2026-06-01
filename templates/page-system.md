@@ -10,22 +10,18 @@ owners:
   - staff:00000000
 source_refs: []
 related: []
-tags: []
-review_after:
 created_at: YYYY-MM-DD
 updated_at: YYYY-MM-DD
 ---
 
 # <title>
 
-## 摘要
+## Summary
 
-## 边界
+## Responsibilities
 
-## Owner
+## Interfaces
 
-## 依赖
+## Runbooks
 
-## 相关 runbook
-
-## 来源与证据
+## Sources And Evidence

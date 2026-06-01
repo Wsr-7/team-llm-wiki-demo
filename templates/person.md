@@ -1,20 +1,29 @@
 ---
 id: staff:00000000
 staff_id: "00000000"
-display_name: ""
-aliases: []
+type: profile
 status: active
-responsibilities: []
-maintained_pages: []
-promoted_knowledge: []
+display_name: ""
+aliases:
+  github: ""
+  email_hash: ""
+teams: []
+owns:
+  systems: []
+  projects: []
+maintains:
+  pages: []
+knowledge_contributions: []
+created_at: YYYY-MM-DD
+updated_at: YYYY-MM-DD
 ---
 
 # staff:00000000
 
-## 责任范围
+## Responsibilities
 
-## 维护页面
+## Maintained Pages
 
-## 已晋升知识贡献
+## Promoted Knowledge
 
-## 备注
+## Notes
