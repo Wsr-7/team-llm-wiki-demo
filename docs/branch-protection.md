@@ -15,4 +15,4 @@ repo 管理员按下列设置配置 `main` 分支保护（Settings → Branches 
 - Require conversation resolution before merging。
 - Settings → Code security: 开启 **Push protection**（secret 扫描，替代自建 check-secrets 脚本）。
 
-例外说明：`inbox/` 的"直接 commit 到 main"约定与分支保护冲突时，取分支保护优先——此时 inbox 贡献改为"发 PR + 自合"（CODEOWNERS 对 `/inbox/` 不设 owner，PR 可零审批合并），捕获成本仍然是分钟级。
+inbox 口径（已定，2026-07-07）：**全走 PR**。`inbox/` 贡献同样发 PR，但 CODEOWNERS 对 `/inbox/` 不设 owner，因此 inbox PR 无需任何审批，自己开自己合（可开 auto-merge），捕获成本约 1 分钟。注意：branch protection 的 "Require approvals" 数量请设为 0（审批要求由 CODEOWNERS 按路径驱动），否则 inbox 自合会被挡住。

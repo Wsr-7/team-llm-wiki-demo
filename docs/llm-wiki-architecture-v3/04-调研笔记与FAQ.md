@@ -64,8 +64,8 @@ repo → Confluence 的单向发布是成熟路径：kovetskiy/mark（CLI，长�
 **Q8: 只有 5 条校验规则，质量靠什么保证？**
 靠 PR review（人）+ 园艺例会（节拍）+ 模板（结构）+ AGENTS.md 写作纪律（agent）。校验脚本只兜"机器擅长且人眼易漏"的底：必填字段、断链、staff-id 格式。v2 规划的 ~20 个脚本里，其余的要么在为伪精度字段打补丁（check-confidence-rules），要么在重造 GitHub（check-candidates 的状态机校验）。
 
-**Q9: 为什么 inbox/ 允许直接 commit main？不怕垃圾进来吗？**
-inbox 的竞争对手是"随手发在 Teams 里然后消失"。门槛为零才能赢。垃圾的成本由双周园艺兜底（分类/合并/删除），且 inbox 内容被 AGENTS.md 明确标记为 unverified，agent 引用时必须声明。**宁要 inbox 里 10 条粗糙的真知识，不要流程完美的空库。**
+**Q9: 为什么 inbox/ 零审批（PR 自开自合）？不怕垃圾进来吗？**
+inbox 的竞争对手是"随手发在 Teams 里然后消失"。门槛必须接近零才能赢（已定口径：全走 PR，但 `/inbox/` 在 CODEOWNERS 中不设 owner，PR 无需审批自合，约 1 分钟）。垃圾的成本由双周园艺兜底（分类/合并/删除），且 inbox 内容被 AGENTS.md 明确标记为 unverified，agent 引用时必须声明；语言也不设限（中文/混杂随意），编译成 wiki 页时才转英文。**宁要 inbox 里 10 条粗糙的真知识，不要流程完美的空库。**
 
 **Q10: 公司内部 API 模型上下文小，读不动整个 repo 怎么办？**
 查询协议本来就不是"读整个 repo"：INDEX.md（几 KB）+ 命中的 2–3 页（每页 <200 行）。这个上下文预算连小模型都够。这也是"页面 30 秒可扫读、超 200 行拆分"纪律的第二重意义。

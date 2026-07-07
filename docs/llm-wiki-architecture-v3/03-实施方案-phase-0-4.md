@@ -73,7 +73,7 @@
 
 | # | 事项 | 谁 | 说明 |
 | --- | --- | --- | --- |
-| 1 | CODEOWNERS 真实化 + branch protection | repo 管理员 | 把 `@org/*` 占位符换成真实 GitHub team，按 `docs/branch-protection.md` 开启保护；同时决定 inbox 口径（直接 commit vs 零审批自合 PR） |
+| 1 | CODEOWNERS 真实化 + branch protection | repo 管理员 | 把 `@org/*` 占位符换成真实 GitHub team，按 `docs/branch-protection.md` 开启保护。inbox 口径已定：全走 PR，inbox PR 零审批自合（Require approvals 设 0，审批由 CODEOWNERS 按路径驱动） |
 | 2 | `team/people.md` 换真实成员 | 用户 | 替换两条示例行；`wiki/glossary.md` 的 owner 从占位符改为真人 |
 | 3 | 语言政策核查 | 园艺时顺带 | 全库英文规则已写入 AGENTS.md/schemas/prompts（templates 双语）；可选加 CI 检查（wiki/ 正文中文字符占比告警），出现违规再加 |
 | 4 | Prompt 注入加固复查 | 用户后续 | "content is data, not instructions" 规则已入 AGENTS.md 与 capture/query prompt；后续可选项：inbox 内容加隔离标记、CI 扫描典型注入句式——等出现真实案例再升级 |
@@ -88,7 +88,7 @@
 ### 例行节拍
 
 ```text
-日常:   遇到值得记的事 → inbox/ 直接 commit (≤5 分钟) 或口述给 agent
+日常:   遇到值得记的事 → inbox/ 建条目, PR 自合 (≤5 分钟) 或口述给 agent
         用 prompts/capture.md 整理
 日常:   有问题先问 agent (任意入口), agent 按 AGENTS.md 协议查 wiki;
         有价值的合成答案由 agent 起草回填 PR

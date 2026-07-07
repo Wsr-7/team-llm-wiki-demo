@@ -6,7 +6,7 @@ Production issue solutions, troubleshooting, runbooks, system knowledge, decisio
 - Reviewed knowledge lives in [`wiki/`](wiki/), enters only via PR, and is safe to cite.
 - Catalog entry point: [`INDEX.md`](INDEX.md) (one line per page, generated).
 - Agent protocol: [`AGENTS.md`](AGENTS.md) (works with any agent — Copilot / Claude Code / opencode / internal models).
-- Language policy: **all repository content is English** (verbatim evidence quotes may stay in their original language). See `AGENTS.md`.
+- Language policy: **formal content (`wiki/`, control plane) is English**; `inbox/` raw captures may be Chinese / mixed and get translated when compiled into wiki pages. See `AGENTS.md`.
 
 ## How to query
 
@@ -17,7 +17,7 @@ Production issue solutions, troubleshooting, runbooks, system knowledge, decisio
 
 | Lane | When | How | Cost |
 | --- | --- | --- | --- |
-| **Quick capture** | Just solved an issue / a discussion worth keeping / a lesson learned | Create a file in [`inbox/`](inbox/) named `YYYY-MM-DD-<slug>.md` with the context, commit directly to main (inbox is PR-exempt). Or hand the material to an agent and let it follow [`prompts/capture.md`](prompts/capture.md) | ≤ 5 min |
+| **Quick capture** | Just solved an issue / a discussion worth keeping / a lesson learned | Create a file in [`inbox/`](inbox/) named `YYYY-MM-DD-<slug>.md` with the context (any language), open a PR and **merge it yourself** — inbox PRs need no review. Or hand the material to an agent and let it follow [`prompts/capture.md`](prompts/capture.md) | ≤ 5 min |
 | **Formal page** | Content is mature and should become team knowledge | Copy the matching template from [`templates/`](templates/) → fill the frontmatter (rules: [`schemas/frontmatter.md`](schemas/frontmatter.md)) → open a PR | 15–30 min |
 
 Inbox entries get compiled into formal pages at the **biweekly gardening session** (agent + rotating gardener) — you do not need to follow up.
