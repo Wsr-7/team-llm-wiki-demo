@@ -1,36 +1,19 @@
-## Knowledge Change Type
+## 改了什么
 
-- [ ] raw source
-- [ ] inbox candidate
-- [ ] formal wiki page
-- [ ] schema/template/prompt
-- [ ] script/index/log
+<!-- 一两句话。新页面 / 更新页面 / 废弃页面 / 控制面变更？ -->
 
-## Source Refs
+## 来源
 
-List source refs used by this change:
+<!-- 结论从哪来：ticket / Confluence 页 / 事故记录链接。
+     纯经验总结请写明"经验总结，无外部来源"。 -->
 
-- 
+## 建议 reviewer
 
-## Owners
+<!-- 按 team/people.md 的负责域找 owner；不确定就留空交给园丁。 -->
 
-Use staff-id format only:
+## 自查
 
-- staff:00000000
-
-## Confidence
-
-- Suggested confidence:
-- Reason:
-
-## Reviewer Checklist
-
-- [ ] All staff references use `staff:########`.
-- [ ] Active wiki pages have `source_refs`.
-- [ ] Active wiki pages have page-level `confidence`.
-- [ ] Page frontmatter follows `schemas/frontmatter.md` and `schemas/page.schema.json`.
-- [ ] `review_after` is present or intentionally omitted.
-- [ ] Related pages include a reason: direct-wikilink, backlink, or shared-source.
-- [ ] No raw/inbox/mirror content is treated as formal wiki knowledge.
-- [ ] Sensitive content is not exported by default.
-- [ ] TypeScript checks pass with `npm run check`.
+- [ ] `npm run check` 通过（新增/移动/改标题的页面已跑 `npm run build-index`）
+- [ ] 新页面复制自 `templates/` 对应模板
+- [ ] 关键证据已摘录进页面（不只贴链接）
+- [ ] 无凭证 / 客户数据 / 大段外部文档整页复制
