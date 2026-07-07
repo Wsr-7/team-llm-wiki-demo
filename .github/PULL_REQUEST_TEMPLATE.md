@@ -11,9 +11,20 @@
 
 <!-- Find the domain owner via team/people.md; leave empty for the gardener if unsure. -->
 
-## Self-check
+## Unevidenced claims
 
-- [ ] `npm run check` passes (`npm run build-index` was run for added/moved/retitled pages)
+<!-- Required for agent-drafted formal pages, recommended for all:
+     list statements that have no [E#] excerpt or source behind them, or write "none". -->
+
+## Self-check (author)
+
+- [ ] `npm run check` passes
 - [ ] New pages copied from the matching `templates/` file
 - [ ] Content is in English; key evidence is excerpted into the page (not just linked)
+- [ ] Runbook/troubleshooting: load-bearing steps carry `[E#]` markers
 - [ ] No credentials / customer data / bulk copies of external documents
+
+## Reviewer check
+
+- [ ] Spot-checked at least one `[E#]` marker against its excerpt — the evidence actually supports the step
+- [ ] The "Unevidenced claims" list above is present and plausible

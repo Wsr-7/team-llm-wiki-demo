@@ -1,0 +1,52 @@
+# Dead-man switch for the maintenance loop (adversarial review finding R1):
+# if no PR titled "gardening: ..." was updated in the last 21 days, open an
+# issue so the stall is visible instead of silent.
+name: gardening-watchdog
+
+on:
+  schedule:
+    - cron: "0 2 * * 1" # every Monday 02:00 UTC
+  workflow_dispatch:
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const DAYS = 21;
+            const since = new Date(Date.now() - DAYS * 24 * 3600 * 1000)
+              .toISOString().slice(0, 10);
+            const repo = `${context.repo.owner}/${context.repo.repo}`;
+            const recent = await github.rest.search.issuesAndPullRequests({
+              q: `repo:${repo} is:pr "gardening:" in:title updated:>=${since}`,
+            });
+            if (recent.data.total_count > 0) {
+              core.info(`OK: ${recent.data.total_count} gardening PR(s) since ${since}.`);
+              return;
+            }
+            const open = await github.rest.search.issuesAndPullRequests({
+              q: `repo:${repo} is:issue is:open label:gardening-overdue`,
+            });
+            if (open.data.total_count > 0) {
+              core.info("Reminder issue already open.");
+              return;
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Gardening overdue: no gardening PR in the last ${DAYS} days`,
+              labels: ["gardening-overdue"],
+              body: [
+                `No PR titled \`gardening: ...\` has been updated in the last ${DAYS} days.`,
+                "The maintenance loop has stalled — inbox entries are piling up and stale pages are not being reported.",
+                "",
+                "Current gardener: run `prompts/gardening.md` and open the gardening PR.",
+                "Protocol: `prompts/gardening.md` · Rotation: `team/people.md` notes column.",
+                "",
+                "_Opened automatically by `.github/workflows/gardening-watchdog.yml`._",
+              ].join("\n"),
+            });

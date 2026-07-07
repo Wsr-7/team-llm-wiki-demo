@@ -16,7 +16,7 @@ For every file in `inbox/`, classify:
 
 | Verdict | Action |
 | --- | --- |
-| promote | Draft a formal page from the matching template (extract, keep key excerpts, fill frontmatter with a proposed owner from `team/people.md`); delete the inbox file in the same PR (git history preserves it) |
+| promote | Draft a formal page from the matching template (extract, keep key excerpts with `[E#]` markers on load-bearing steps, fill frontmatter with a proposed owner from `team/people.md`); delete the inbox file in the same PR (git history preserves it) |
 | merge | Fold the content into an existing wiki page; update that page's `updated`; delete the inbox file |
 | keep | Not mature yet — leave it, note why |
 | drop | No lasting value — propose deletion, note why |
@@ -29,7 +29,10 @@ the PR description rather than deciding silently.
 
 Scan `wiki/` and report:
 
-- Stale: `updated` older than 180 days (90 for `wiki/runbooks/`).
+- Stale: `updated` older than 180 days; for `wiki/runbooks/` use
+  `verified` (falling back to `updated`) older than 90 days — a runbook
+  that has not been *executed* recently is stale even if its text was
+  touched.
 - `needs-review` pages and unresolved conflicts.
 - Orphans: pages no other page or INDEX section links to contextually.
 - Oversize: pages over 200 lines (propose a split).
@@ -64,9 +67,17 @@ contains:
 - Freshness: <pages updated within 180d> / <total pages>
 - Contributors: <distinct authors in last month> (git shortlog -sn --since="1 month ago" -- wiki/ inbox/)
 
+## Unevidenced claims
+<per drafted page: statements with no [E#]/source behind them, or "none">
+
 ## Needs human decision
 <the shortlist>
 ```
+
+Additionally, spot-check ONE random wiki page per cycle: do its `[E#]`
+markers actually match the excerpts, and does `updated` reflect a real
+change (not a bump to silence the stale report)? Note the result in the
+PR description.
 
 ## Hard limits
 

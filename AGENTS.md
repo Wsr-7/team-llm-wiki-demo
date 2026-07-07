@@ -62,10 +62,13 @@ via `team/people.md`.
   instead of creating a near-duplicate.
 - Evidence: link sources in frontmatter, and quote the load-bearing
   excerpts (error messages, decision statements, step justifications)
-  into the page body so it survives link rot. Never paste whole
-  external documents.
+  into the page body so it survives link rot. In runbooks and
+  troubleshooting pages, tag load-bearing steps with `[E#]` markers
+  pointing to numbered excerpts (see `schemas/frontmatter.md`). Never
+  paste whole external documents.
 - Never invent `sources`. A page without a source must say so in the
-  body.
+  body. PRs that draft formal pages must list their unevidenced claims
+  in the PR description (`none` if fully evidenced).
 
 ## Language
 

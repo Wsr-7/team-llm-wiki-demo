@@ -1,6 +1,10 @@
 ---
 owner: staff:00000000
 updated: YYYY-MM-DD
+# verified (optional): the date this procedure was last executed successfully
+# for real — distinct from `updated` (text edits). Gardening flags runbooks
+# whose verified/updated is older than 90 days.
+# verified: YYYY-MM-DD
 sources:
   - https://REPLACE-with-ticket-or-page-url
 tags: []
@@ -23,9 +27,12 @@ tags: []
 ## Steps
 <!-- 步骤: One action per step + expected result / verification;
      mark risky steps [approval required] or [irreversible].
-     每步一个动作 + 预期结果/验证方式; 高危步骤标注。 -->
+     Evidence markers: tag load-bearing steps with [E1], [E2], … pointing to
+     the matching numbered excerpt in "Source excerpts" — the reviewer must be
+     able to see WHY this step is what it is.
+     每步一个动作 + 预期结果/验证方式; 高危步骤标注; 关键步骤加 [E#] 指向来源摘录编号。 -->
 
-1. …
+1. … [E1]
    - verify: …
 
 ## Rollback
@@ -37,7 +44,8 @@ tags: []
      卡住/超时找谁及升级顺序。 -->
 
 ## Source excerpts
-<!-- 来源摘录: Verbatim evidence behind the steps (key passages, incident conclusions).
-     步骤依据的证据原文。 -->
+<!-- 来源摘录: Verbatim evidence behind the steps (key passages, incident conclusions),
+     numbered so steps can reference them with [E#].
+     步骤依据的证据原文, 编号供正文 [E#] 引用。 -->
 
-> …
+- [E1] > … (source: <link or ticket>)

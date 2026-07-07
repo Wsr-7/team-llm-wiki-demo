@@ -24,17 +24,19 @@ tags: []
 
 ## Resolution steps
 <!-- 处置步骤: Numbered steps, each with a verification; mark risky steps [approval required].
-     编号步骤, 每步带验证方式; 高危步骤标注 [approval required]。 -->
+     Tag load-bearing steps with [E1], [E2], … pointing to numbered source excerpts.
+     编号步骤, 每步带验证方式; 高危步骤标注; 关键步骤加 [E#] 指向来源摘录编号。 -->
 
-1. … (verify: …)
+1. … [E1] (verify: …)
 
 ## Source excerpts
-<!-- 来源摘录: Verbatim key evidence: error text, incident conclusions, monitoring links.
+<!-- 来源摘录: Verbatim key evidence: error text, incident conclusions, monitoring links,
+     numbered so steps can reference them with [E#].
      Links rot, excerpts don't — always copy the load-bearing evidence in.
      Non-English quotes stay verbatim with a one-line English gloss.
      链接会失效, 摘录不会——重要证据务必抄进来; 非英文引文保留原文并附一行英文说明。 -->
 
-> …
+- [E1] > … (source: <link or ticket>)
 
 ## Prevention & follow-ups
 <!-- 预防与后续: Fixes done/planned: fix tickets, new monitoring, related decision pages.

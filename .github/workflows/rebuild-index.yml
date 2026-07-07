@@ -1,0 +1,33 @@
+# Rebuilds INDEX.md on main after every merge (adversarial review finding R4:
+# requiring each PR to carry a fresh INDEX.md made it a merge-conflict magnet).
+# check.ts treats a stale INDEX as a warning; this workflow keeps main exact.
+# NOTE: if branch protection blocks pushes to main, add the GitHub Actions app
+# to the bypass list — see docs/branch-protection.md.
+name: rebuild-index
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm run build-index
+      - name: Commit INDEX.md if changed
+        run: |
+          if ! git diff --quiet -- INDEX.md; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add INDEX.md
+            git commit -m "chore: rebuild INDEX.md [bot]"
+            git push
+          else
+            echo "INDEX.md already up to date."
+          fi

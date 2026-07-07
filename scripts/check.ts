@@ -19,7 +19,7 @@ const warnings = [];
 
 const STAFF_ID = /^staff:\d{8}$/;
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
-const ALLOWED_FIELDS = new Set(["owner", "updated", "sources", "status", "superseded_by", "tags"]);
+const ALLOWED_FIELDS = new Set(["owner", "updated", "verified", "sources", "status", "superseded_by", "tags"]);
 const ALLOWED_STATUS = new Set(["needs-review", "superseded"]);
 const SOURCES_REQUIRED_SECTIONS = new Set(["troubleshooting", "runbooks", "decisions"]);
 const ALLOWED_SECTIONS = new Set(["troubleshooting", "runbooks", "systems", "decisions", "concepts", "guides"]);
@@ -97,6 +97,12 @@ for (const page of pages) {
     errors.push(`${at}: "superseded_by" is only allowed together with status: superseded`);
   }
 
+  // verified (optional: date the procedure was last validated for real)
+  const verified = page.data.verified;
+  if (verified !== undefined && (typeof verified !== "string" || !DATE.test(verified) || Number.isNaN(Date.parse(verified)))) {
+    errors.push(`${at}: "verified" must be a valid YYYY-MM-DD date when present`);
+  }
+
   // tags
   if (page.data.tags !== undefined && !Array.isArray(page.data.tags)) errors.push(`${at}: "tags" must be a list`);
 
@@ -104,6 +110,25 @@ for (const page of pages) {
   if (!page.title) errors.push(`${at}: body must start with a "# Title" heading (INDEX generation depends on it)`);
   const lineCount = page.body.split("\n").length;
   if (lineCount > 200) warnings.push(`${at}: ${lineCount} lines — split pages over 200 lines`);
+  if ((page.section === "runbooks" || page.section === "troubleshooting") && !/^##\s+Source excerpts/im.test(page.body)) {
+    warnings.push(`${at}: no "## Source excerpts" section — quote the load-bearing evidence (see schemas/frontmatter.md)`);
+  }
+}
+
+// --- superseded_by chain cycle detection ---
+const byPath = new Map(pages.map((page) => [page.path, page]));
+for (const page of pages) {
+  if (page.data?.status !== "superseded") continue;
+  const seen = new Set([page.path]);
+  let target = page.data.superseded_by;
+  while (typeof target === "string" && byPath.has(target)) {
+    if (seen.has(target)) {
+      errors.push(`${page.path}: superseded_by chain contains a cycle (${[...seen, target].join(" → ")})`);
+      break;
+    }
+    seen.add(target);
+    target = byPath.get(target).data?.superseded_by;
+  }
 }
 
 // --- internal links ---
@@ -126,13 +151,15 @@ for (const fullPath of linkScanFiles) {
   }
 }
 
-// --- INDEX freshness ---
+// --- INDEX freshness (warning only: a bot rebuilds INDEX.md on main after
+// merge, see .github/workflows/rebuild-index.yml; keeping this an error would
+// make INDEX.md a merge-conflict magnet across concurrent PRs) ---
 if (!fileExists("INDEX.md")) {
   errors.push("INDEX.md is missing — run: npm run build-index");
 } else {
   const current = readText(repoPath("INDEX.md")).replace(/\r\n/g, "\n").trimEnd();
   const expected = buildIndexContent(pages).trimEnd();
-  if (current !== expected) errors.push("INDEX.md is out of date — run: npm run build-index");
+  if (current !== expected) warnings.push("INDEX.md is out of date (auto-rebuilt on main after merge; run npm run build-index locally to silence)");
 }
 
 // --- inbox naming (warning only: inbox stays zero-friction) ---

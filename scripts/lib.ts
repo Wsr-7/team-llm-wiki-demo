@@ -41,7 +41,7 @@ export function parseFrontmatter(text) {
   const data = {};
   let activeArrayKey = null;
   for (const line of match[1].split(/\r?\n/)) {
-    if (/^\s*$/.test(line)) continue;
+    if (/^\s*$/.test(line) || /^\s*#/.test(line)) continue;
     const arrayItem = line.match(/^\s+-\s*(.*)$/);
     if (arrayItem) {
       if (!activeArrayKey) return { data: null, body: "", error: `array item without a key: "${line.trim()}"` };

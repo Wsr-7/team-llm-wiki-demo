@@ -23,7 +23,9 @@ Read `AGENTS.md` first. Field rules: `schemas/frontmatter.md`.
    - Default → one `inbox/` entry: `inbox/YYYY-MM-DD-<slug>.md`.
    - The material is already mature (clear problem, verified solution,
      known owner) and the user agrees → draft a formal page from the
-     matching template and open a PR instead.
+     matching template and open a PR instead. In runbook/troubleshooting
+     drafts, tag load-bearing steps with `[E#]` markers pointing to
+     numbered source excerpts (see `schemas/frontmatter.md`).
 4. **Extract, do not transcribe.** Summarize the facts; keep the load-
    bearing evidence verbatim (error messages, commands, decision
    statements) as quoted excerpts. For material with no stable URL,
@@ -49,6 +51,11 @@ Read `AGENTS.md` first. Field rules: `schemas/frontmatter.md`.
 ## Rules
 
 - Never invent facts, links, or staff-ids. Unknown → `TODO`.
+- **Self-report unevidenced claims**: every formal-page PR you draft
+  must end its description with an `## Unevidenced claims` section
+  listing each statement that has no `[E#]` excerpt or source behind it
+  (write `none` if fully evidenced). This is what the reviewer checks
+  first — omitting it is worse than a long list.
 - One entry per topic; split unrelated topics into separate files.
 - Inbox entries need no frontmatter. Open a PR touching only `inbox/`
   and merge it yourself — inbox PRs require no review. Formal pages

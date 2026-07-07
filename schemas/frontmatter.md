@@ -8,6 +8,7 @@ Scope: `wiki/**/*.md` (including `wiki/glossary.md`). `inbox/` entries have **no
 ---
 owner: staff:12345678                  # required
 updated: 2026-07-07                    # required
+verified: 2026-07-01                   # optional: last real-world validation (runbooks/troubleshooting)
 sources:                               # conditionally required (see below)
   - https://jira.company.com/browse/PAY-1234
   - https://confluence.company.com/pages/123456 (moved to .../789, 2026-07)
@@ -17,7 +18,7 @@ tags: [payment, oncall]                # optional
 ---
 ```
 
-These six fields are the **only** allowed fields. Adding a field requires changing this document first (see `schemas/README.md`); `check.ts` rejects unknown fields.
+These seven fields are the **only** allowed fields. Adding a field requires changing this document first (see `schemas/README.md`); `check.ts` rejects unknown fields. Full-line `#` comments are allowed inside frontmatter.
 
 ## Field semantics
 
@@ -25,6 +26,7 @@ These six fields are the **only** allowed fields. Adding a field requires changi
 | --- | --- | --- |
 | `owner` | yes | `staff:########` (8-digit staff-id), must exist in `team/people.md`. `staff:00000000` is the system placeholder; on a formal page it triggers a warning and should be replaced with a real owner |
 | `updated` | yes | `YYYY-MM-DD`, date of the last **substantive confirmation or change**. Typo fixes don't bump it; confirming "still accurate" should |
+| `verified` | no | `YYYY-MM-DD`, date the procedure was last **executed successfully for real** (production run, drill, incident). Distinct from `updated`, which only says the text was touched. Meaningful for runbooks/troubleshooting; gardening flags runbooks whose `verified` (falling back to `updated`) is older than 90 days |
 | `sources` | conditional | Non-empty required under `wiki/troubleshooting|runbooks|decisions/`; strongly recommended elsewhere. Entries are URLs or ticket ids. For pure experience with no external source, state "experience summary, no external source" in the body and reference the related ticket/PR here |
 | `status` | no | Absent = current (the normal case). `needs-review` = doubtful / pending confirmation / unresolved conflict; `superseded` = replaced, agents must not cite it as current guidance |
 | `superseded_by` | conditional | Required with `status: superseded`; repo-relative path; target file must exist |
@@ -46,11 +48,12 @@ Resolution order when several pages could answer a question: `AGENTS.md` → "An
 
 ## Sources conventions (including link rot)
 
-1. **Links first, excerpts as insurance**: `sources` gives a clickable verification path; the page body's "Source excerpts" section preserves the load-bearing evidence verbatim (error messages, step justifications, decision statements). The more critical the claim, the more you excerpt.
-2. **Rot annotations**: when an external link moves or dies, don't delete the entry — annotate it:
+1. **Links first, excerpts as insurance**: `sources` gives a clickable verification path; the page body's "Source excerpts" section preserves the load-bearing evidence verbatim (error messages, step justifications, decision statements). The more critical the claim, the more you excerpt. `check.ts` warns when a runbook/troubleshooting page has no "Source excerpts" section.
+2. **Evidence markers `[E#]`**: in runbooks and troubleshooting pages, tag load-bearing steps with `[E1]`, `[E2]`, … pointing to the matching numbered excerpt in "Source excerpts" (`- [E1] > quote (source: link)`). This is the lightweight replacement for claim-level provenance: a reviewer checks step↔evidence correspondence by number instead of re-reading everything, with no YAML machinery.
+3. **Rot annotations**: when an external link moves or dies, don't delete the entry — annotate it:
    `(moved to <new-url>, YYYY-MM)` or `(dead link as of YYYY-MM, excerpt preserved in page)`.
-3. **Ephemeral sources** (chat threads, verbal accounts, meetings): paste the original text into the inbox entry; after compiling into a formal page the essentials go into "Source excerpts", and git history keeps the full original forever. A source entry may read `git-history: inbox/YYYY-MM-DD-<slug>.md`.
-4. **Never**: bulk-copy external documents, or paste credentials / customer data.
+4. **Ephemeral sources** (chat threads, verbal accounts, meetings): paste the original text into the inbox entry; after compiling into a formal page the essentials go into "Source excerpts", and git history keeps the full original forever. A source entry may read `git-history: inbox/YYYY-MM-DD-<slug>.md`.
+5. **Never**: bulk-copy external documents, or paste credentials / customer data.
 
 ## Page taxonomy (directory = type)
 

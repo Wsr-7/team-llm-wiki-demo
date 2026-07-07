@@ -50,19 +50,22 @@
 ### Step 0.3 种子内容（冷启动的核心）
 
 ```text
-1. 团队每人认领 1-2 个"最近半年被问过至少两次的问题", 写成页面。
+1. 招募种子贡献者 15-25 人 (150-200 人团队不追求全员参与; 每个域至少
+   1 人, 含 1-2 名非开发角色试读者), 每人认领 1-2 个"最近半年被问过
+   至少两次的问题", 写成页面。
    优先级: troubleshooting > runbook > systems 概览 > glossary。
-2. 目标: 首批 8-15 个真实页面, 全部走一遍 PR 流程 (让每个人做过一次
-   贡献者和一次 reviewer)。
-3. 写 team/people.md。
+2. 目标: 首批 20-40 个真实页面, 全部走一遍 PR 流程 (让每个种子贡献者
+   做过一次贡献者和一次 reviewer)。
+3. 写 team/people.md; 按已认领的域补齐域级 CODEOWNERS 行 (必做,
+   否则 knowledge-admins 会成为全部 PR 的瓶颈)。
 4. 跑 build-index 生成 INDEX.md。
 ```
 
 ### Phase 0 验收标准
 
-- `npm run check` 与 CI 绿色；branch protection 生效。
-- `wiki/` 有 ≥8 个真实页面，每页有 owner 和 sources，无 demo 内容。
-- 团队每个成员至少合过 1 个 PR。
+- `npm run check` 与 CI 绿色；branch protection 生效（含 rebuild-index bot 的 bypass 配置）。
+- `wiki/` 有 ≥15 个真实页面，每页有 owner 和 sources，无 demo 内容。
+- 每个种子贡献者至少合过 1 个 PR；域级 CODEOWNERS 行已覆盖已认领的域。
 - 用 Copilot 和另一个 agent（Claude Code 或 opencode）各问 5 个真实问题冒烟测试：能引用页面回答，答不出的正确返回 unknown。
 
 ### Phase 0 明确不做
@@ -98,9 +101,9 @@
 
 ### Phase 1 验收标准（第 6 周检查）
 
-- `wiki/` ≥ 25 页；inbox 平均滞留 ≤ 2 个园艺周期。
-- 回答率：真实问题 ≥ 50% 能从 wiki 得到带引用的答案。
-- 贡献面：≥ 一半团队成员在过去一个月有贡献。
+- `wiki/` ≥ 40 页；inbox 平均滞留 ≤ 2 个园艺周期。
+- 回答率：真实问题 ≥ 50% 能从 wiki 得到带引用的答案（此指标为轶事性统计，见 06 §R5，不必假装精确）。
+- 贡献面：过去一个月活跃贡献者 ≥ 15 人（≈种子队规模；150-200 人团队中"全员/半数参与"不是目标，供给侧 20-40 人 + 消费侧全员才是健康形态）。
 - 至少发生过 3 次"agent 回答后回填 PR 被合并"。
 
 若验收不达标：**问题在内容和习惯，不在机制**。解法是园艺例会上定向补页面（把 unknown 清单变成认领任务），而不是加任何新机制。
