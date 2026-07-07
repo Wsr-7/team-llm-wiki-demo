@@ -6,35 +6,38 @@ sources:
 tags: []
 ---
 
-# Runbook: <操作名称>
+# Runbook: <operation name>
+<!-- 标题: Runbook: <操作名称> -->
 
-<!-- 一句话摘要: 这个 runbook 让你安全地完成什么操作。 -->
+<!-- One-line summary: what this runbook lets you do safely. Body must be English.
+     一句话摘要: 这个 runbook 让你安全地完成什么操作。 -->
 
-## 适用场景
+## When to use
+<!-- 适用场景: When to run this — and when NOT to (misuse is worse than no use).
+     什么情况下执行; 什么情况下【不要】执行。 -->
 
-<!-- 什么情况下执行本操作; 什么情况下【不要】执行 (误用比不用更危险)。 -->
+## Preconditions
+<!-- 前置条件: Permissions, tools, time window, who to notify (staff:########).
+     权限、工具、时间窗口、需要通知谁。 -->
 
-## 前置条件
-
-<!-- 权限、工具、时间窗口、需要通知谁 (staff:########)。 -->
-
-## 步骤
-
-<!-- 每步一个动作 + 预期结果/验证方式; 高危步骤标注 [需要审批] 或 [不可逆]。 -->
+## Steps
+<!-- 步骤: One action per step + expected result / verification;
+     mark risky steps [approval required] or [irreversible].
+     每步一个动作 + 预期结果/验证方式; 高危步骤标注。 -->
 
 1. …
-   - 验证：…
+   - verify: …
 
-## 回滚
+## Rollback
+<!-- 回滚: How to back out if step N fails. If there is no rollback path, say so and state the consequence.
+     执行到第 N 步失败时如何回退; 没有回滚路径就明说并标注后果。 -->
 
-<!-- 执行到第 N 步失败时如何回退。没有回滚路径就明说, 并标注后果。 -->
+## Escalation
+<!-- 升级路径: Who to call when stuck/timed out: staff:######## and the escalation order.
+     卡住/超时找谁及升级顺序。 -->
 
-## 升级路径
-
-<!-- 卡住/超时找谁: staff:######## 及升级顺序。 -->
-
-## 来源摘录
-
-<!-- 步骤依据的证据原文 (原始文档关键段落、事故结论)。 -->
+## Source excerpts
+<!-- 来源摘录: Verbatim evidence behind the steps (key passages, incident conclusions).
+     步骤依据的证据原文。 -->
 
 > …

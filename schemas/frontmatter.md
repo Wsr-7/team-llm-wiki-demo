@@ -1,75 +1,76 @@
-# Wiki 页面 Frontmatter 规则
+# Wiki Page Frontmatter Rules
 
-适用范围：`wiki/**/*.md`（含 `wiki/glossary.md`）。`inbox/` 条目**没有** frontmatter 要求。
+Scope: `wiki/**/*.md` (including `wiki/glossary.md`). `inbox/` entries have **no** frontmatter requirements.
 
-## 字段总表
+## All fields
 
 ```yaml
 ---
-owner: staff:12345678                  # 必填
-updated: 2026-07-07                    # 必填
-sources:                               # 条件必填 (见下)
+owner: staff:12345678                  # required
+updated: 2026-07-07                    # required
+sources:                               # conditionally required (see below)
   - https://jira.company.com/browse/PAY-1234
   - https://confluence.company.com/pages/123456 (moved to .../789, 2026-07)
-status: needs-review                   # 可选, 枚举: needs-review | superseded
-superseded_by: wiki/runbooks/payment-failover-v2.md   # status: superseded 时必填
-tags: [payment, oncall]                # 可选
+status: needs-review                   # optional, enum: needs-review | superseded
+superseded_by: wiki/runbooks/payment-failover-v2.md   # required when status: superseded
+tags: [payment, oncall]                # optional
 ---
 ```
 
-允许的字段**只有以上六个**。新增字段需先修改本文档（见 `schemas/README.md` 的修改规则），`check.ts` 会拒绝未知字段。
+These six fields are the **only** allowed fields. Adding a field requires changing this document first (see `schemas/README.md`); `check.ts` rejects unknown fields.
 
-## 字段语义
+## Field semantics
 
-| 字段 | 必填 | 规则 |
+| Field | Required | Rule |
 | --- | --- | --- |
-| `owner` | 是 | `staff:########`（8 位 staff-id），必须存在于 `team/people.md`。`staff:00000000` 是系统占位符，出现在正式页面会触发 warning，应尽快替换为真实负责人 |
-| `updated` | 是 | `YYYY-MM-DD`，最后一次**实质确认或修改**的日期。只改错别字不用更新；确认"内容仍然正确"应该更新 |
-| `sources` | 条件 | `wiki/troubleshooting|runbooks|decisions/` 下必填非空；其它类型强烈建议。条目为 URL 或 ticket 号；纯经验总结无外部来源时，在正文声明"经验总结，无外部来源" 并在此处填 ticket/PR 亦可 |
-| `status` | 否 | 缺省 = 现行有效（这是常态）。`needs-review` = 存疑/待确认/有未裁决冲突；`superseded` = 已被取代，agent 不得作为现行指导引用 |
-| `superseded_by` | 条件 | `status: superseded` 时必填，repo 内相对路径，目标文件必须存在 |
-| `tags` | 否 | 小写短词，用于 grep 命中率，不建受控词表（园艺时合并同义 tag） |
+| `owner` | yes | `staff:########` (8-digit staff-id), must exist in `team/people.md`. `staff:00000000` is the system placeholder; on a formal page it triggers a warning and should be replaced with a real owner |
+| `updated` | yes | `YYYY-MM-DD`, date of the last **substantive confirmation or change**. Typo fixes don't bump it; confirming "still accurate" should |
+| `sources` | conditional | Non-empty required under `wiki/troubleshooting|runbooks|decisions/`; strongly recommended elsewhere. Entries are URLs or ticket ids. For pure experience with no external source, state "experience summary, no external source" in the body and reference the related ticket/PR here |
+| `status` | no | Absent = current (the normal case). `needs-review` = doubtful / pending confirmation / unresolved conflict; `superseded` = replaced, agents must not cite it as current guidance |
+| `superseded_by` | conditional | Required with `status: superseded`; repo-relative path; target file must exist |
+| `tags` | no | Short lowercase words to improve grep hit rate. No controlled vocabulary — synonymous tags get merged at gardening |
 
-没有的字段及理由：`confidence`（无法校准的伪精度，用 status 三态）、`type`（目录即类型）、`id`（路径即 id）、`created_at`（git log）、`review_state`（并入 status）、`visibility`（repo 权限即边界）。
+Fields that intentionally do not exist, and why: `confidence` (uncalibratable false precision — use the three status states), `type` (the directory is the type), `id` (the path is the id), `created_at` (git log), `review_state` (folded into status), `visibility` (repo permissions are the boundary).
 
-## status 与信任模型
+## Status and the trust model
 
 ```text
-信任级别 (agent 引用时的处理):
-  wiki/ 无 status        → 现行有效, 直接引用
-  wiki/ needs-review     → 可引用, 必须附带"此页待确认"警告
-  wiki/ superseded       → 不得作为现行指导, 顺 superseded_by 找替代页
-  inbox/                 → unverified, 引用必须声明未经审核
+Trust levels (how agents must treat content):
+  wiki/ without status   → current, cite freely
+  wiki/ needs-review     → usable, must attach a "pending review" warning
+  wiki/ superseded       → never cite as current guidance; follow superseded_by
+  inbox/                 → unverified, must be labeled as such when cited
 ```
 
-多页冲突时的裁决顺序见 `AGENTS.md` → "Answering questions" 第 4 条。
+Resolution order when several pages could answer a question: `AGENTS.md` → "Answering questions", step 4.
 
-## sources 约定（含链接失效处理）
+## Sources conventions (including link rot)
 
-1. **链接为主，摘录为辅**：sources 提供可点击的核查通道；页面正文的"来源摘录"小节保存关键证据原文（报错原文、步骤依据、决策原话）。重要性越高，摘得越多。
-2. **失效注记**：外链被移动/删除时不删条目，追加注记——
-   `(moved to <new-url>, YYYY-MM)` 或 `(dead link as of YYYY-MM, excerpt preserved in page)`。
-3. **易失来源**（聊天记录、口述、会议）：原文粘进 inbox 条目；compile 成正式页后精华进"来源摘录"，git 历史永久保留完整原文。sources 可写 `git-history: inbox/YYYY-MM-DD-<slug>.md`。
-4. **禁止**：整页复制外部文档、粘贴凭证/客户数据。
+1. **Links first, excerpts as insurance**: `sources` gives a clickable verification path; the page body's "Source excerpts" section preserves the load-bearing evidence verbatim (error messages, step justifications, decision statements). The more critical the claim, the more you excerpt.
+2. **Rot annotations**: when an external link moves or dies, don't delete the entry — annotate it:
+   `(moved to <new-url>, YYYY-MM)` or `(dead link as of YYYY-MM, excerpt preserved in page)`.
+3. **Ephemeral sources** (chat threads, verbal accounts, meetings): paste the original text into the inbox entry; after compiling into a formal page the essentials go into "Source excerpts", and git history keeps the full original forever. A source entry may read `git-history: inbox/YYYY-MM-DD-<slug>.md`.
+4. **Never**: bulk-copy external documents, or paste credentials / customer data.
 
-## 页面类型分类法（目录即类型）
+## Page taxonomy (directory = type)
 
-| 目录 | 类型 | 回答的问题 | 模板 |
+| Directory | Type | Question it answers | Template |
 | --- | --- | --- | --- |
-| `wiki/troubleshooting/` | 排障 | 出了 X 问题怎么定位和解决？ | `templates/troubleshooting.md` |
-| `wiki/runbooks/` | 操作手册 | 如何安全地执行 X 操作？ | `templates/runbook.md` |
-| `wiki/systems/` | 系统 | X 系统是什么、边界、依赖、找谁？ | `templates/system.md` |
-| `wiki/decisions/` | 决策 | 为什么当初选了 X？ | `templates/decision.md` |
-| `wiki/concepts/` | 概念 | X（领域概念）是什么、为什么重要？ | `templates/concept.md` |
-| `wiki/guides/` | 指南 | 怎么做 X（流程/实践/how-to）？ | `templates/guide.md` |
-| `wiki/glossary.md` | 术语 | X 这个词在团队里指什么？ | 文件内自带条目格式 |
+| `wiki/troubleshooting/` | troubleshooting | How do I diagnose and fix problem X? | `templates/troubleshooting.md` |
+| `wiki/runbooks/` | runbook | How do I safely perform operation X? | `templates/runbook.md` |
+| `wiki/systems/` | system | What is system X — boundaries, dependencies, who to ask? | `templates/system.md` |
+| `wiki/decisions/` | decision | Why did we choose X back then? | `templates/decision.md` |
+| `wiki/concepts/` | concept | What is (domain concept) X and why does it matter? | `templates/concept.md` |
+| `wiki/guides/` | guide | How do we do X (process / practice / how-to)? | `templates/guide.md` |
+| `wiki/glossary.md` | glossary | What does the term X mean on this team? | entry format inside the file |
 
-页面必须放在上述目录内（`check.ts` 强制）。需要子目录按域分组时可自由创建（如 `wiki/runbooks/payment/`）。
+Pages must live in these directories (`check.ts` enforces it). Subdirectories for domain grouping are free-form (e.g. `wiki/runbooks/payment/`).
 
-v2 旧分类的去向：`overview` → README/INDEX 承担；`team` → `team/people.md`；`project` → systems 或 decisions；`practice`、`learning` → guides；`mirrored` → 取消（Confluence 策略见 docs/llm-wiki-architecture-v3/02 §9）。
+Where the v2 legacy types went: `overview` → README/INDEX; `team` → `team/people.md`; `project` → systems or decisions; `practice`, `learning` → guides; `mirrored` → dropped (Confluence strategy: docs/llm-wiki-architecture-v3/02 §9).
 
-## 正文纪律
+## Body discipline
 
-- 30 秒可扫读；一页只回答一个问题；超过 200 行拆页。
-- 首行是 `# 标题`（INDEX 生成依赖它）；标题下第一段是一句话摘要（会进 INDEX）。
-- 页面互链用相对路径 markdown 链接（`check.ts` 校验有效性）。
+- Scannable in 30 seconds; one page answers one question; split pages over 200 lines.
+- First line is `# Title` (INDEX generation depends on it); the first paragraph under the title is a one-line summary (it goes into INDEX).
+- **All content is English** (see `AGENTS.md`, "Language"); verbatim evidence quotes may stay in their original language with an English gloss.
+- Cross-links use relative markdown links (`check.ts` validates them).

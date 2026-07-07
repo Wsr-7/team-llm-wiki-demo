@@ -1,23 +1,25 @@
-# 示例条目：支付网关凌晨批量任务超时（可删除）
+# Example entry: payment gateway nightly batch timeout (safe to delete)
 
-> 这是 inbox 条目的示例（虚构内容），展示"5 分钟捕获"该长什么样。首批真实条目加入后可删除。
+> This is an example inbox entry (fictional), showing what a "5-minute capture" looks like. Delete once real entries exist.
 
-一句话：7 月 7 日凌晨对账批量任务超时，根因是连接池配置在上次扩容后没有同步调整，临时调大后恢复。
+One line: the reconciliation batch job timed out in the early hours of Jul 7; root cause was the connection pool config not being adjusted after the last scale-out; recovered after a temporary pool increase.
 
-- 系统：payment-gateway（对账批量任务）
-- 时间：2026-07-07 02:30 左右，持续约 40 分钟
-- 相关人：staff:12345678（处置）、staff:23456789（复核）
-- 链接：https://jira.example.com/browse/PAY-9999 （虚构）
+- System: payment-gateway (reconciliation batch job)
+- Time: 2026-07-07 ~02:30, lasted about 40 minutes
+- People: staff:12345678 (mitigation), staff:23456789 (review)
+- Links: https://jira.example.com/browse/PAY-9999 (fictional)
 
-发生了什么 / 怎么解决的：
+What happened / how it was resolved:
 
-1. 02:30 批量任务告警超时，重试两次仍失败。
-2. 查连接池指标发现 active 连接打满；上周实例扩容 2 → 4，池上限没跟着调。
-3. 临时把 `pool.maxSize` 从 20 调到 50，任务重跑成功。
-4. 待办：把该配置纳入扩容 checklist（建 runbook 页时一并写入）。
+1. 02:30 batch job timeout alert; two retries failed.
+2. Pool metrics showed active connections pegged at the limit; instances were scaled 2 → 4 last week but the pool cap was never raised.
+3. Temporarily raised `pool.maxSize` from 20 to 50; job rerun succeeded.
+4. Follow-up: add this config to the scale-out checklist (fold into the runbook page when it is written).
 
-## 原始记录
+## Raw notes
 
 > [02:41] xxx: 连接池 active 一直是 20 顶着，扩容之后配置没动过
+>   (gloss: pool active count pegged at 20; config untouched since the scale-out)
 > [02:43] yyy: 调到 50 试试，历史峰值 35 左右
-> （无稳定 URL 的聊天记录粘贴在这里，本文件就是 raw 层；git 历史永久保留）
+>   (gloss: try 50; historical peak is around 35)
+> (Chat records without a stable URL get pasted here — this file is the raw layer; git history keeps it forever.)

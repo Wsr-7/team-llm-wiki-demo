@@ -6,36 +6,39 @@ sources:
 tags: []
 ---
 
-# <系统名>: <一句话问题描述，含关键错误特征>
+# <System>: <one-line problem statement with the key error signature>
+<!-- 标题: <系统名>: <一句话问题描述, 含关键错误特征> -->
 
-<!-- 标题下第一段 = 一句话摘要, 会进 INDEX。例: 上游连接池耗尽导致支付网关 502 突增的定位与处置。 -->
+<!-- First paragraph under the title = one-line summary, goes into INDEX.
+     Example: How to diagnose and mitigate the payment gateway 502 spike caused by upstream pool exhaustion.
+     标题下第一段 = 一句话摘要, 会进 INDEX。页面正文必须用英文。 -->
 
-## 现象
-
-<!-- 告警长什么样、用户侧什么表现、日志/监控里的关键特征。
+## Symptoms
+<!-- 现象: What the alert looks like, user-facing impact, the log/metric signature.
+     Goal: the next person confirms "this is the same issue" within 30 seconds.
      目标: 让下一个遇到的人 30 秒内确认"就是这个问题"。 -->
 
-## 根因
+## Root cause
+<!-- 根因: One paragraph for the causal chain: condition → behavior → outcome.
+     一段话讲清机制链条。 -->
 
-<!-- 一段话讲清机制链条: 什么条件 → 什么行为 → 什么结果。 -->
+## Resolution steps
+<!-- 处置步骤: Numbered steps, each with a verification; mark risky steps [approval required].
+     编号步骤, 每步带验证方式; 高危步骤标注 [approval required]。 -->
 
-## 处置步骤
+1. … (verify: …)
 
-<!-- 编号步骤, 每步附验证方式; 高危步骤标注 [需要审批]。 -->
-
-1. …（验证：…）
-
-## 来源摘录
-
-<!-- 关键证据原文: 报错原文、事故单结论、监控截图链接。
-     链接会失效, 摘录不会——重要证据务必抄进来。 -->
+## Source excerpts
+<!-- 来源摘录: Verbatim key evidence: error text, incident conclusions, monitoring links.
+     Links rot, excerpts don't — always copy the load-bearing evidence in.
+     Non-English quotes stay verbatim with a one-line English gloss.
+     链接会失效, 摘录不会——重要证据务必抄进来; 非英文引文保留原文并附一行英文说明。 -->
 
 > …
 
-## 预防与后续
+## Prevention & follow-ups
+<!-- 预防与后续: Fixes done/planned: fix tickets, new monitoring, related decision pages.
+     已做/待做的改进: 修复 ticket、新增监控、相关决策页链接。 -->
 
-<!-- 已做/待做的改进: 修复 ticket、新增监控、相关决策页链接。 -->
-
-## 相关页面
-
-<!-- wiki 内相对链接, 如 [支付网关](../systems/payment-gateway.md) -->
+## Related pages
+<!-- 相关页面: relative links inside wiki/, e.g. [Payment Gateway](../systems/payment-gateway.md) -->

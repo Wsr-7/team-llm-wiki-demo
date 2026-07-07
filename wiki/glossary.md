@@ -4,14 +4,14 @@ updated: 2026-07-07
 tags: [glossary]
 ---
 
-# 术语表
+# Glossary
 
-团队术语的一句话定义。只需要一句话就说得清的词条放这里；需要展开讲的概念开 `wiki/concepts/` 页面并在此链接。
+One-line definitions of team terms. Terms that need only one sentence live here; concepts that need explanation get a `wiki/concepts/` page, linked from their entry.
 
-条目格式：`### 术语（别名/缩写）` + 一句话定义 + 可选的相关链接。按字母/拼音排序。
+Entry format: `### Term (alias / abbreviation)` + one-line definition + optional related links. Sorted alphabetically.
 
 ---
 
-### 示例词条（Example Term）
+### Example Term
 
-这是一个示例条目，展示格式：一句话说清这个词在本团队语境下指什么；需要展开时链接到对应 `wiki/concepts/` 页面。（首批真实词条加入后删除本条目）
+An example entry showing the format: one sentence saying what this term means in this team's context; link to the matching `wiki/concepts/` page when it needs more. (Delete this entry once real terms are added.)

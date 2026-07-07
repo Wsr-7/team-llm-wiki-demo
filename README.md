@@ -1,53 +1,54 @@
 # Team LLM Wiki
 
-团队知识库：一个 git repo 管理的、**人和 AI Agent 都能直接读写**的团队知识库。
-生产问题解决方案、troubleshooting、runbook、系统知识、决策记录、经验沉淀——都在这里。
+The team knowledge base: a git-managed wiki that **both humans and AI agents read and write**.
+Production issue solutions, troubleshooting, runbooks, system knowledge, decision records, distilled experience — it all lives here.
 
-- 正式知识在 [`wiki/`](wiki/)，只通过 PR 进入，可以放心引用。
-- 目录入口：[`INDEX.md`](INDEX.md)（每页一行，脚本生成）。
-- Agent 行为协议：[`AGENTS.md`](AGENTS.md)（Copilot / Claude Code / opencode 等任意 agent 通用）。
+- Reviewed knowledge lives in [`wiki/`](wiki/), enters only via PR, and is safe to cite.
+- Catalog entry point: [`INDEX.md`](INDEX.md) (one line per page, generated).
+- Agent protocol: [`AGENTS.md`](AGENTS.md) (works with any agent — Copilot / Claude Code / opencode / internal models).
+- Language policy: **all repository content is English** (verbatim evidence quotes may stay in their original language). See `AGENTS.md`.
 
-## 怎么查
+## How to query
 
-- **用 AI**：在任意接入了本 repo 的 agent 里直接提问（Copilot Chat / Copilot Space / Claude Code / opencode）。agent 会按协议查 wiki 并给出带引用的回答；答不出会返回 `unknown` 并建议该补哪页。
-- **不用 AI**：打开 [`INDEX.md`](INDEX.md) 找页面，或用 GitHub 网页搜索。
+- **With AI**: ask in any agent connected to this repo (Copilot Chat / Copilot Space / Claude Code / opencode). The agent follows the protocol, answers with citations, and returns `unknown` with a page suggestion when the wiki has no answer.
+- **Without AI**: open [`INDEX.md`](INDEX.md), or use GitHub web search.
 
-## 怎么贡献（两条路径）
+## How to contribute (two lanes)
 
-| 路径 | 什么时候用 | 怎么做 | 成本 |
+| Lane | When | How | Cost |
 | --- | --- | --- | --- |
-| **快速捕获** | 刚解决一个问题 / 一段值得记的讨论 / 一条经验 | 在 [`inbox/`](inbox/) 建一个文件 `YYYY-MM-DD-一句话.md`，写清上下文，直接 commit 到 main（inbox 允许免 PR）。也可以把材料丢给 agent，让它按 [`prompts/capture.md`](prompts/capture.md) 整理 | ≤ 5 分钟 |
-| **正式页面** | 内容已成形，值得成为团队正式知识 | 复制 [`templates/`](templates/) 对应模板 → 填 frontmatter（规则见 [`schemas/frontmatter.md`](schemas/frontmatter.md)）→ 发 PR | 15–30 分钟 |
+| **Quick capture** | Just solved an issue / a discussion worth keeping / a lesson learned | Create a file in [`inbox/`](inbox/) named `YYYY-MM-DD-<slug>.md` with the context, commit directly to main (inbox is PR-exempt). Or hand the material to an agent and let it follow [`prompts/capture.md`](prompts/capture.md) | ≤ 5 min |
+| **Formal page** | Content is mature and should become team knowledge | Copy the matching template from [`templates/`](templates/) → fill the frontmatter (rules: [`schemas/frontmatter.md`](schemas/frontmatter.md)) → open a PR | 15–30 min |
 
-inbox 里的条目会在**双周园艺例会**上由 agent + 轮值园丁整理成正式页面，你不用管后续。
+Inbox entries get compiled into formal pages at the **biweekly gardening session** (agent + rotating gardener) — you do not need to follow up.
 
-## 目录结构
+## Layout
 
-| 路径 | 内容 |
+| Path | Content |
 | --- | --- |
-| `wiki/troubleshooting/` | 生产问题：现象 → 根因 → 处置 |
-| `wiki/runbooks/` | 操作手册：前置 → 步骤 → 验证 → 回滚 |
-| `wiki/systems/` | 系统页：边界、依赖、负责人、已知坑 |
-| `wiki/decisions/` | 决策记录（轻量 ADR） |
-| `wiki/concepts/` | 领域概念与背景知识 |
-| `wiki/guides/` | how-to 与团队实践 |
-| `wiki/glossary.md` | 术语表 |
-| `inbox/` | 未审快速捕获区（内容未验证） |
-| `team/people.md` | staff-id ↔ GitHub ↔ 负责域 路由表 |
-| `schemas/` `prompts/` `templates/` | 规则、任务协议、页面模板（控制面，改动需 admin 审核） |
-| `docs/` | 本知识库自身的架构文档与历史归档 |
+| `wiki/troubleshooting/` | Production issues: symptoms → root cause → resolution |
+| `wiki/runbooks/` | Operational procedures: preconditions → steps → verification → rollback |
+| `wiki/systems/` | System pages: boundaries, dependencies, owners, known pitfalls |
+| `wiki/decisions/` | Decision records (lightweight ADR) |
+| `wiki/concepts/` | Domain concepts and background knowledge |
+| `wiki/guides/` | How-tos and team practices |
+| `wiki/glossary.md` | Team terms |
+| `inbox/` | Unreviewed quick captures (unverified content) |
+| `team/people.md` | staff-id ↔ GitHub ↔ owned-domain routing table |
+| `schemas/` `prompts/` `templates/` | Rules, task protocols, page templates (control plane — changes need admin review) |
+| `docs/` | Architecture docs and design history of this repo itself |
 
-## 本地命令
+## Local commands
 
 ```bash
-npm run check         # 校验: frontmatter 必填/枚举/链接/owner/INDEX 新鲜度 (PR 必过)
-npm run build-index   # 重新生成 INDEX.md (新增/移动/改标题后运行)
+npm run check         # validate: required fields / enums / links / owners / INDEX freshness (required for PRs)
+npm run build-index   # regenerate INDEX.md (run after adding, moving, or retitling pages)
 ```
 
-脚本零依赖，`node` 直接运行（Node 22.6+）。
+Scripts are dependency-free and run directly with `node` (Node 22.6+).
 
-## 治理
+## Governance
 
-- 正式知识只经 PR；CODEOWNERS 与 branch protection 配置见 [`docs/branch-protection.md`](docs/branch-protection.md)。
-- 双周园艺例会（30 分钟）：agent 按 [`prompts/gardening.md`](prompts/gardening.md) 产出整理 PR，轮值园丁审核合并。
-- 设计文档与演进历史：[`docs/llm-wiki-architecture-v3/`](docs/llm-wiki-architecture-v3/)。
+- Formal knowledge changes via PR only; CODEOWNERS and branch protection setup: [`docs/branch-protection.md`](docs/branch-protection.md).
+- Biweekly gardening session (30 min): the agent produces a maintenance PR per [`prompts/gardening.md`](prompts/gardening.md); the rotating gardener reviews and merges.
+- Design docs and evolution history: [`docs/llm-wiki-architecture-v3/`](docs/llm-wiki-architecture-v3/).

@@ -5,22 +5,22 @@ sources: []
 tags: []
 ---
 
-# <概念名>
+# <Concept name>
+<!-- 标题: <概念名> -->
 
-<!-- 一句话定义 (会进 INDEX)。只需要一句话定义的词条请放 wiki/glossary.md, 不要开 concept 页。 -->
+<!-- One-line definition (goes into INDEX). Terms needing only one sentence belong in
+     wiki/glossary.md — do not open a concept page for them. Body must be English.
+     一句话定义; 只需要一句话的词条请放 glossary, 不要开 concept 页。 -->
 
-## 在本团队语境下的含义
+## What it means on this team
+<!-- 在本团队语境下的含义: The general definition + how we use it / where we deviate.
+     通用定义 + 我们团队怎么用它 / 和通用含义的差别。 -->
 
-<!-- 通用定义 + 我们团队怎么用它 / 和通用含义的差别。 -->
+## Key points
+<!-- 关键点: 3–5 bullets, one or two sentences each. -->
 
-## 关键点
+## Common misunderstandings
+<!-- 常见误解: Where newcomers usually get it wrong. -->
 
-<!-- 3-5 条, 每条一两句。 -->
-
-## 常见误解
-
-<!-- 新人容易理解错的地方。 -->
-
-## 相关页面
-
-<!-- 相关 systems / guides / glossary 词条链接。 -->
+## Related pages
+<!-- 相关页面: related systems / guides / glossary entries. -->

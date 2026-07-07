@@ -60,9 +60,9 @@ contains:
 <findings, each with a proposed owner or action>
 
 ## Metrics
-- 回答率: <answered>/<asked> this cycle (gardener fills from memory/notes)
-- 鲜活度: <pages updated within 180d> / <total pages>
-- 贡献面: <distinct authors in last month> (git shortlog -sn --since="1 month ago" -- wiki/ inbox/)
+- Answer rate: <answered>/<asked> this cycle (gardener fills from notes)
+- Freshness: <pages updated within 180d> / <total pages>
+- Contributors: <distinct authors in last month> (git shortlog -sn --since="1 month ago" -- wiki/ inbox/)
 
 ## Needs human decision
 <the shortlist>

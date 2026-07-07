@@ -1,10 +1,10 @@
-# 人员路由表
+# People Routing Table
 
-> staff-id ↔ GitHub ↔ 负责域 的唯一映射表。规则见 [`schemas/person.md`](../schemas/person.md)。
-> 下表除 `staff:00000000` 外均为示例行，Phase 0 种子内容阶段替换为真实成员。
+> The single staff-id ↔ GitHub ↔ owned-domain mapping. Rules: [`schemas/person.md`](../schemas/person.md).
+> All rows except `staff:00000000` are examples — replace with real members during Phase 0 seeding.
 
 | staff_id | github | owns | notes |
 | --- | --- | --- | --- |
-| staff:00000000 | - | - | 系统占位符，非真人；模板与待认领页面使用 |
-| staff:12345678 | example-user-a | payment, checkout | 示例行，待替换 |
-| staff:23456789 | example-user-b | infra, ci | 示例行，待替换 |
+| staff:00000000 | - | - | System placeholder, not a person; used by templates and unclaimed pages |
+| staff:12345678 | example-user-a | payment, checkout | Example row, replace |
+| staff:23456789 | example-user-b | infra, ci | Example row, replace |

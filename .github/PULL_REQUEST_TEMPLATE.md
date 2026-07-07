@@ -1,19 +1,19 @@
-## 改了什么
+## What changed
 
-<!-- 一两句话。新页面 / 更新页面 / 废弃页面 / 控制面变更？ -->
+<!-- One or two sentences. New page / page update / supersession / control-plane change? -->
 
-## 来源
+## Sources
 
-<!-- 结论从哪来：ticket / Confluence 页 / 事故记录链接。
-     纯经验总结请写明"经验总结，无外部来源"。 -->
+<!-- Where the conclusions come from: ticket / Confluence page / incident record links.
+     For pure experience write "experience summary, no external source". -->
 
-## 建议 reviewer
+## Suggested reviewers
 
-<!-- 按 team/people.md 的负责域找 owner；不确定就留空交给园丁。 -->
+<!-- Find the domain owner via team/people.md; leave empty for the gardener if unsure. -->
 
-## 自查
+## Self-check
 
-- [ ] `npm run check` 通过（新增/移动/改标题的页面已跑 `npm run build-index`）
-- [ ] 新页面复制自 `templates/` 对应模板
-- [ ] 关键证据已摘录进页面（不只贴链接）
-- [ ] 无凭证 / 客户数据 / 大段外部文档整页复制
+- [ ] `npm run check` passes (`npm run build-index` was run for added/moved/retitled pages)
+- [ ] New pages copied from the matching `templates/` file
+- [ ] Content is in English; key evidence is excerpted into the page (not just linked)
+- [ ] No credentials / customer data / bulk copies of external documents
