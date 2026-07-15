@@ -1,15 +1,23 @@
-# Default knowledge admins
+# NOTE: replace the @org/* placeholders with real GitHub teams, then
+# enable branch protection per docs/branch-protection.md.
+# Identity note: knowledge page content uses staff-ids, but CODEOWNERS
+# requires GitHub teams/usernames — team/people.md maps between them.
+
+# Default: knowledge admins review everything not matched below.
 * @org/knowledge-admins
 
-# Schemas and prompts are governed centrally
+# Control plane: admin review required.
 /AGENTS.md @org/knowledge-admins
+/CLAUDE.md @org/knowledge-admins
 /schemas/ @org/knowledge-admins
-/templates/ @org/knowledge-admins
 /prompts/ @org/knowledge-admins
+/templates/ @org/knowledge-admins
+/scripts/ @org/knowledge-admins
+/team/ @org/knowledge-admins
+/.github/ @org/knowledge-admins
 
-# Personal profiles need admin review
-/personal/*/profile.md @org/knowledge-admins
+# Inbox: zero-friction capture, no required review.
+/inbox/
 
-# Domain examples
-/wiki/systems/payment/ @org/payment-platform
-/wiki/runbooks/payment/ @org/payment-platform
+# Domain knowledge: add one line per domain as owners emerge, e.g.
+# /wiki/runbooks/payment/ @org/payment-team

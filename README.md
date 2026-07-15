@@ -1,69 +1,54 @@
-# Team LLM Wiki Demo
+# Team LLM Wiki
 
-This repository is a demo implementation of the team LLM Wiki design.
+The team knowledge base: a git-managed wiki that **both humans and AI agents read and write**.
+Production issue solutions, troubleshooting, runbooks, system knowledge, decision records, distilled experience — it all lives here.
 
-The GitHub repository is the authority layer. Formal knowledge lives under `wiki/`. Staff ownership and responsibility mapping lives under `personal/<staff-id>/profile.md`. AI agents may help ingest, compile, check, and propose changes, but formal knowledge must go through PR review before it is accepted.
+- Reviewed knowledge lives in [`wiki/`](wiki/), enters only via PR, and is safe to cite.
+- Catalog entry point: [`INDEX.md`](INDEX.md) (one line per page, generated).
+- Agent protocol: [`AGENTS.md`](AGENTS.md) (works with any agent — Copilot / Claude Code / opencode / internal models).
+- Language policy: **formal content (`wiki/`, control plane) is English**; `inbox/` raw captures may be Chinese / mixed and get translated when compiled into wiki pages. See `AGENTS.md`.
 
-## Quick Links
+## How to query
 
-- Knowledge index: [indexes/INDEX.md](indexes/INDEX.md)
-- Agent protocol: [AGENTS.md](AGENTS.md)
-- Schema Pack: [schemas/README.md](schemas/README.md)
-- Templates: [templates/](templates/)
-- Prompts: [prompts/](prompts/)
-- Staff profiles: [personal/](personal/)
-- Demo raw source: [raw/runbooks/2026-06-01-demo-payment-runbook/](raw/runbooks/2026-06-01-demo-payment-runbook/)
-- Demo candidate: [inbox/candidates/demo-payment-runbook.md](inbox/candidates/demo-payment-runbook.md)
-- Demo formal wiki page: [wiki/runbooks/payment/demo-payment-runbook.md](wiki/runbooks/payment/demo-payment-runbook.md)
+- **With AI**: ask in any agent connected to this repo (Copilot Chat / Copilot Space / Claude Code / opencode). The agent follows the protocol, answers with citations, and returns `unknown` with a page suggestion when the wiki has no answer.
+- **Without AI**: open [`INDEX.md`](INDEX.md), or use GitHub web search.
 
-## Phase 0 Contribution Flow
+## How to contribute (two lanes)
 
-1. Put source material under `raw/<category>/<date>-<slug>/`.
-2. Use `prompts/ingest-source.md` to create or update a candidate under `inbox/candidates/`.
-3. Use `prompts/compile-wiki.md` to update the candidate's `Wiki Proposal`.
-4. Use `prompts/prepare-wiki-patch.md` to prepare a PR-ready patch.
-5. Formal knowledge enters `wiki/` only after PR review.
+| Lane | When | How | Cost |
+| --- | --- | --- | --- |
+| **Quick capture** | Just solved an issue / a discussion worth keeping / a lesson learned | Create a file in [`inbox/`](inbox/) named `YYYY-MM-DD-<slug>.md` with the context (any language), open a PR and **merge it yourself** — inbox PRs need no review. Or hand the material to an agent and let it follow [`prompts/capture.md`](prompts/capture.md) | ≤ 5 min |
+| **Formal page** | Content is mature and should become team knowledge | Copy the matching template from [`templates/`](templates/) → fill the frontmatter (rules: [`schemas/frontmatter.md`](schemas/frontmatter.md)) → open a PR | 15–30 min |
 
-## Phase 0 Scope
+Inbox entries get compiled into formal pages at the **biweekly gardening session** (agent + rotating gardener) — you do not need to follow up.
 
-Implemented:
+## Layout
 
-- Repository skeleton
-- Staff-id identity rules
-- Schema Pack baseline
-- Source manifest template
-- Core prompt protocols
-- Minimal demo raw source, candidate, and formal wiki page
-- Index, operation log, and TypeScript check scripts
+| Path | Content |
+| --- | --- |
+| `wiki/troubleshooting/` | Production issues: symptoms → root cause → resolution |
+| `wiki/runbooks/` | Operational procedures: preconditions → steps → verification → rollback |
+| `wiki/systems/` | System pages: boundaries, dependencies, owners, known pitfalls |
+| `wiki/decisions/` | Decision records (lightweight ADR) |
+| `wiki/concepts/` | Domain concepts and background knowledge |
+| `wiki/guides/` | How-tos and team practices |
+| `wiki/glossary.md` | Team terms |
+| `inbox/` | Unreviewed quick captures (unverified content) |
+| `team/people.md` | staff-id ↔ GitHub ↔ owned-domain routing table |
+| `schemas/` `prompts/` `templates/` | Rules, task protocols, page templates (control plane — changes need admin review) |
+| `docs/` | Architecture docs and design history of this repo itself |
 
-Not in Phase 0:
+## Local commands
 
-- Embedding or vector search
-- QMD integration
-- Remote Confluence sync
-- Automatic ingest daemon
-- Graph database or automatic graph extraction
-- `site/`
-- `exports/`
-
-## Identity
-
-All employee references must use an 8-digit staff-id:
-
-```yaml
-owners:
-  - staff:12345678
+```bash
+npm run check         # validate: required fields / enums / links / owners / INDEX freshness (required for PRs)
+npm run build-index   # regenerate INDEX.md (run after adding, moving, or retitling pages)
 ```
 
-`staff:00000000` is a system placeholder only. Real knowledge should use real staff IDs.
+Scripts are dependency-free and run directly with `node` (Node 22.6+).
 
-## Local Checks
+## Governance
 
-```text
-npm run check
-npm run check:staff-id
-npm run check:frontmatter
-npm run check:source-refs
-npm run check:candidates
-npm run check:links
-```
+- Formal knowledge changes via PR only; CODEOWNERS and branch protection setup: [`docs/branch-protection.md`](docs/branch-protection.md).
+- Biweekly gardening session (30 min): the agent produces a maintenance PR per [`prompts/gardening.md`](prompts/gardening.md); the rotating gardener reviews and merges.
+- Design docs and evolution history: [`docs/llm-wiki-architecture-v3/`](docs/llm-wiki-architecture-v3/).

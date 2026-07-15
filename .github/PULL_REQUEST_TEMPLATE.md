@@ -1,36 +1,30 @@
-## Knowledge Change Type
+## What changed
 
-- [ ] raw source
-- [ ] inbox candidate
-- [ ] formal wiki page
-- [ ] schema/template/prompt
-- [ ] script/index/log
+<!-- One or two sentences. New page / page update / supersession / control-plane change? -->
 
-## Source Refs
+## Sources
 
-List source refs used by this change:
+<!-- Where the conclusions come from: ticket / Confluence page / incident record links.
+     For pure experience write "experience summary, no external source". -->
 
-- 
+## Suggested reviewers
 
-## Owners
+<!-- Find the domain owner via team/people.md; leave empty for the gardener if unsure. -->
 
-Use staff-id format only:
+## Unevidenced claims
 
-- staff:00000000
+<!-- Required for agent-drafted formal pages, recommended for all:
+     list statements that have no [E#] excerpt or source behind them, or write "none". -->
 
-## Confidence
+## Self-check (author)
 
-- Suggested confidence:
-- Reason:
+- [ ] `npm run check` passes
+- [ ] New pages copied from the matching `templates/` file
+- [ ] Content is in English; key evidence is excerpted into the page (not just linked)
+- [ ] Runbook/troubleshooting: load-bearing steps carry `[E#]` markers
+- [ ] No credentials / customer data / bulk copies of external documents
 
-## Reviewer Checklist
+## Reviewer check
 
-- [ ] All staff references use `staff:########`.
-- [ ] Active wiki pages have `source_refs`.
-- [ ] Active wiki pages have page-level `confidence`.
-- [ ] Page frontmatter follows `schemas/frontmatter.md` and `schemas/page.schema.json`.
-- [ ] `review_after` is present or intentionally omitted.
-- [ ] Related pages include a reason: direct-wikilink, backlink, or shared-source.
-- [ ] No raw/inbox/mirror content is treated as formal wiki knowledge.
-- [ ] Sensitive content is not exported by default.
-- [ ] TypeScript checks pass with `npm run check`.
+- [ ] Spot-checked at least one `[E#]` marker against its excerpt — the evidence actually supports the step
+- [ ] The "Unevidenced claims" list above is present and plausible

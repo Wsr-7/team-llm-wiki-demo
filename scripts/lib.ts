@@ -1,5 +1,5 @@
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { join, relative, dirname, posix } from "node:path";
 
 export const repoRoot = process.cwd();
 
@@ -11,8 +11,8 @@ export function displayPath(path) {
   return relative(repoRoot, path).replaceAll("\\", "/");
 }
 
-export function pathExists(path) {
-  return existsSync(repoPath(path));
+export function readText(path) {
+  return readFileSync(path, "utf8");
 }
 
 export function listFiles(root, extensions) {
@@ -31,72 +31,39 @@ export function listFiles(root, extensions) {
   return files.sort();
 }
 
-export function listDirs(root) {
-  const start = repoPath(root);
-  if (!existsSync(start)) return [];
-  return readdirSync(start, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => join(start, entry.name));
-}
-
-export function readText(path) {
-  return readFileSync(path, "utf8");
-}
-
-export function isDirectory(path) {
-  const fullPath = repoPath(path);
-  return existsSync(fullPath) && statSync(fullPath).isDirectory();
-}
-
+// Flat-YAML-subset frontmatter parser. The page schema is intentionally
+// flat (see schemas/frontmatter.md); nested mappings are rejected so the
+// schema cannot silently grow beyond what this parser understands.
 export function parseFrontmatter(text) {
-  const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
-  if (!match) return null;
+  const normalized = text.replace(/^﻿/, "");
+  const match = normalized.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+  if (!match) return { data: null, body: normalized, error: "missing frontmatter block" };
   const data = {};
-  const lines = match[1].split(/\r?\n/);
   let activeArrayKey = null;
-  for (const line of lines) {
+  for (const line of match[1].split(/\r?\n/)) {
+    if (/^\s*$/.test(line) || /^\s*#/.test(line)) continue;
     const arrayItem = line.match(/^\s+-\s*(.*)$/);
-    if (activeArrayKey && arrayItem) {
+    if (arrayItem) {
+      if (!activeArrayKey) return { data: null, body: "", error: `array item without a key: "${line.trim()}"` };
       data[activeArrayKey].push(parseScalar(arrayItem[1]));
       continue;
     }
-    const keyValue = line.match(/^([A-Za-z_][A-Za-z0-9_-]*):(?:\s*(.*))?$/);
-    if (!keyValue) {
-      activeArrayKey = null;
-      continue;
+    if (/^\s+\S/.test(line)) {
+      return { data: null, body: "", error: `nested YAML is not allowed (flat schema only): "${line.trim()}"` };
     }
+    const keyValue = line.match(/^([A-Za-z_][A-Za-z0-9_-]*):(?:\s*(.*))?$/);
+    if (!keyValue) return { data: null, body: "", error: `unparseable frontmatter line: "${line.trim()}"` };
     const [, key, rawValue = ""] = keyValue;
     const value = rawValue.trim();
     if (value === "") {
       data[key] = [];
       activeArrayKey = key;
-      continue;
+    } else {
+      data[key] = parseScalar(value);
+      activeArrayKey = null;
     }
-    data[key] = parseScalar(value);
-    activeArrayKey = null;
   }
-  return { data, body: text.slice(match[0].length) };
-}
-
-export function getString(data, key) {
-  return typeof data[key] === "string" ? data[key] : null;
-}
-
-export function getNumber(data, key) {
-  return typeof data[key] === "number" ? data[key] : null;
-}
-
-export function getArray(data, key) {
-  const value = data[key];
-  return Array.isArray(value) ? value.filter((item) => typeof item === "string") : [];
-}
-
-export function failIfErrors(errors, successMessage) {
-  if (errors.length > 0) {
-    for (const error of errors) console.error(error);
-    process.exit(1);
-  }
-  console.log(successMessage);
+  return { data, body: normalized.slice(match[0].length), error: null };
 }
 
 function parseScalar(rawValue) {
@@ -104,10 +71,119 @@ function parseScalar(rawValue) {
   if (value === "[]") return [];
   if (value.startsWith("[") && value.endsWith("]")) {
     const inner = value.slice(1, -1).trim();
-    if (!inner) return [];
-    return inner.split(",").map((part) => parseScalar(part.trim()));
+    return inner ? inner.split(",").map((part) => parseScalar(part)) : [];
   }
-  if (value === "null" || value === "~") return null;
-  if (/^-?\d+(?:\.\d+)?$/.test(value)) return Number(value);
   return value.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1");
 }
+
+export function extractTitle(body) {
+  const match = body.match(/^# (.+)$/m);
+  return match ? match[1].trim() : null;
+}
+
+export function extractSummary(body) {
+  const lines = body.split(/\r?\n/);
+  let seenTitle = false;
+  let inComment = false;
+  let inFence = false;
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!seenTitle) {
+      if (line.startsWith("# ")) seenTitle = true;
+      continue;
+    }
+    if (inComment) {
+      if (line.includes("-->")) inComment = false;
+      continue;
+    }
+    if (line.startsWith("```")) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence || line === "" || line.startsWith("#")) continue;
+    if (line.startsWith("<!--")) {
+      if (!line.includes("-->")) inComment = true;
+      continue;
+    }
+    const summary = line.replace(/^>\s*/, "").replace(/\*\*/g, "");
+    return summary.length > 100 ? `${summary.slice(0, 100)}…` : summary;
+  }
+  return "";
+}
+
+export const WIKI_SECTIONS = [
+  { dir: "troubleshooting", label: "Troubleshooting — production issues" },
+  { dir: "runbooks", label: "Runbooks — operational procedures" },
+  { dir: "systems", label: "Systems" },
+  { dir: "decisions", label: "Decisions" },
+  { dir: "concepts", label: "Concepts" },
+  { dir: "guides", label: "Guides & practices" },
+];
+
+// Every wiki page, parsed. path is repo-relative posix style.
+export function collectWikiPages() {
+  return listFiles("wiki", [".md"]).map((fullPath) => {
+    const path = displayPath(fullPath);
+    const { data, body, error } = parseFrontmatter(readText(fullPath));
+    const section = posix.relative("wiki", path).split("/")[0];
+    return {
+      path,
+      section: section.endsWith(".md") ? null : section,
+      data,
+      body,
+      parseError: error,
+      title: extractTitle(body ?? ""),
+      summary: extractSummary(body ?? ""),
+    };
+  });
+}
+
+export function buildIndexContent(pages) {
+  const lines = [
+    "# INDEX",
+    "",
+    "> Generated by `npm run build-index` — do not edit by hand. One line per page: title — summary.",
+    "",
+  ];
+  const entryFor = (page) => {
+    const title = page.title ?? posix.basename(page.path, ".md");
+    let marker = "";
+    if (page.data?.status === "needs-review") marker = " (needs-review)";
+    if (page.data?.status === "superseded") marker = ` (superseded → ${page.data.superseded_by ?? "?"})`;
+    const summary = page.summary ? ` — ${page.summary}` : "";
+    return `- [${title}](${page.path})${summary}${marker}`;
+  };
+  for (const { dir, label } of WIKI_SECTIONS) {
+    const sectionPages = pages.filter((page) => page.section === dir);
+    if (sectionPages.length === 0) continue;
+    lines.push(`## ${label}`, "");
+    for (const page of sectionPages) lines.push(entryFor(page));
+    lines.push("");
+  }
+  lines.push("## Other", "");
+  const glossary = pages.find((page) => page.path === "wiki/glossary.md");
+  if (glossary) lines.push(entryFor(glossary));
+  lines.push("- [People routing table](team/people.md) — staff-id ↔ GitHub ↔ owned domains", "");
+  return lines.join("\n");
+}
+
+export function reportAndExit(errors, warnings, successMessage) {
+  for (const warning of warnings) console.warn(`WARN  ${warning}`);
+  if (errors.length > 0) {
+    for (const error of errors) console.error(`ERROR ${error}`);
+    console.error(`\n${errors.length} error(s), ${warnings.length} warning(s).`);
+    process.exit(1);
+  }
+  console.log(`${successMessage} (${warnings.length} warning(s))`);
+}
+
+export function fileExists(path) {
+  return existsSync(repoPath(path));
+}
+
+export function resolveLink(fromFile, target) {
+  if (target.startsWith("/")) return target.slice(1);
+  return posix.normalize(posix.join(posix.dirname(fromFile), target));
+}
+
+export { dirname };
