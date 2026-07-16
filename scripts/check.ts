@@ -136,7 +136,7 @@ const LINK = /\[[^\]]*\]\(([^)]+)\)/g;
 const linkScanFiles = [
   ...listFiles("wiki", [".md"]),
   ...listFiles("team", [".md"]),
-  ...["README.md", "AGENTS.md"].filter((file) => fileExists(file)).map((file) => repoPath(file)),
+  ...["README.md", "README.zh-CN.md", "AGENTS.md"].filter((file) => fileExists(file)).map((file) => repoPath(file)),
 ];
 for (const fullPath of linkScanFiles) {
   const from = displayPath(fullPath);

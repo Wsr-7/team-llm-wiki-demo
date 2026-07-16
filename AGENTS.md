@@ -75,7 +75,8 @@ via `team/people.md`.
 **Formal content is English**: everything under `wiki/`, plus INDEX,
 schemas, prompts, templates, commit messages, and PR descriptions. When
 compiling material into a wiki page, translate — even when the input is
-Chinese.
+Chinese. (Sole exception: `README.zh-CN.md`, the maintained Chinese
+mirror of the README.)
 
 **`inbox/` is the raw layer and has no language requirement**: entries
 may be Chinese, English, or mixed — paste material as-is. When an agent

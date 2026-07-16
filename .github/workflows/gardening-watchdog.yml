@@ -1,3 +1,4 @@
+# Reference implementation (job J3) — Jenkins equivalent in docs/ci.md.
 # Dead-man switch for the maintenance loop (adversarial review finding R1):
 # if no PR titled "gardening: ..." was updated in the last 21 days, open an
 # issue so the stall is visible instead of silent.

@@ -1,3 +1,4 @@
+# Reference implementation (job J2) — Jenkins equivalent in docs/ci.md.
 # Rebuilds INDEX.md on main after every merge (adversarial review finding R4:
 # requiring each PR to carry a fresh INDEX.md made it a merge-conflict magnet).
 # check.ts treats a stale INDEX as a warning; this workflow keeps main exact.
