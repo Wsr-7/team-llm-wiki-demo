@@ -52,7 +52,9 @@ Run `npm run build-index`, then `npm run check`. Both must pass.
 
 ## Step 4 — One PR
 
-Open a single PR titled `gardening: YYYY-MM-DD` whose description
+Open a single PR titled `gardening: YYYY-MM-DD` (merge it with **squash
+merge keeping this title** — the CI watchdog greps main history for
+`gardening:` to detect a stalled loop, see docs/ci.md). The description
 contains:
 
 ```markdown

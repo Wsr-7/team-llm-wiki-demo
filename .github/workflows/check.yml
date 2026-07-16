@@ -1,3 +1,5 @@
+# Reference implementation (job J1). In environments without GitHub Actions
+# the company Jenkins pipeline is authoritative — see docs/ci.md.
 name: check
 
 on:
