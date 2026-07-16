@@ -22,41 +22,13 @@
 
 ### J2 INDEX 重建（建议做；可降级）
 
-- 一个由 main push 触发的 Jenkins job（webhook 或 SCM polling）：
-
-```groovy
-// Freestyle 或 pipeline 均可; 需要一个有 push 权限的服务账号凭据
-sh 'npm run build-index'
-sh '''
-  if ! git diff --quiet -- INDEX.md; then
-    git config user.name  "jenkins-bot"
-    git config user.email "jenkins-bot@company.com"
-    git add INDEX.md
-    git commit -m "chore: rebuild INDEX.md [bot]"
-    git push origin HEAD:main
-  fi
-'''
-```
-
+- 现成 pipeline 文件：[`jenkins/index-rebuild.Jenkinsfile`](../jenkins/index-rebuild.Jenkinsfile)。建一个由 main push 触发的 Pipeline job（webhook 或 SCM polling），"Pipeline script from SCM" 指向该文件即可。
 - 分支保护需允许该服务账号直推 main（GHE: bypass 列表；Bitbucket: branch permission 例外）。
 - **降级方案**（不想配服务账号时）：不建此 job。`check` 对 INDEX 过期只报 warning，由园丁每双周跑一次 `npm run build-index` 随园艺 PR 提交——INDEX 最多漂移两周，可接受。
 
 ### J3 园艺看门狗（建议做，10 分钟配置）
 
-- 定时 job（`H 2 * * 1`），不 checkout 也行，浅 clone 即可：
-
-```groovy
-sh '''
-  git fetch origin main
-  if [ -z "$(git log origin/main --since='21 days ago' --grep='^gardening:' --oneline)" ]; then
-    echo "GARDENING OVERDUE: no gardening PR merged in 21 days"
-    # 通知方式按公司习惯二选一:
-    # curl -H 'Content-Type: application/json' -d '{"text":"[team-llm-wiki] Gardening overdue: no gardening PR in 21 days. See prompts/gardening.md"}' "$TEAMS_WEBHOOK"
-    exit 1   # 让 job 变红 + Jenkins 邮件通知
-  fi
-'''
-```
-
+- 现成 pipeline 文件：[`jenkins/gardening-watchdog.Jenkinsfile`](../jenkins/gardening-watchdog.Jenkinsfile)。建一个 Pipeline job 指向该文件即可（cron 触发器已内置：每周一）；21 天无园艺产出时 job 变红，把日常的红色构建通知（邮件/Teams webhook）接上即可。
 - 依赖一个约定：**园艺 PR 用 squash merge 且保留 `gardening: YYYY-MM-DD` 标题**（这样 main 历史里能 grep 到）。此约定已写入 prompts/gardening.md 的 PR 标题规则。
 
 ## 3. `.github/workflows/` 三个 yml 是什么、怎么用
