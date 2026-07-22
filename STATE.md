@@ -5,7 +5,7 @@
 ## 当前阶段
 
 - v3 架构文档 01–07 已合入 main（PR #3，2026-07-16 merged）。
-- 2026-07-23：新增 `docs/llm-wiki-architecture-v3/08-多小组知识库兼容方案.md`（Hub-and-Spoke：域子目录为默认承载，spoke 触发器 T-S1/S2/S3 + 反触发器，同构契约 C1-C6，跨库晋升/取代/治理，建库 checklist）。分支 `design-20260723`，待 PR 审阅。
+- 2026-07-23：`docs/llm-wiki-architecture-v3/08` 按发起人反馈修订为**单库分域**方案（domain 第二轴、域内自治清单、能/不能自定分界、新域 15 分钟 checklist；分库降为权限隔离附录 A）。分支 `design-20260723`，PR #5 待审阅。
 
 ## In progress
 

@@ -19,5 +19,6 @@
 # Inbox: zero-friction capture, no required review.
 /inbox/
 
-# Domain knowledge: add one line per domain as owners emerge, e.g.
-# /wiki/runbooks/payment/ @org/payment-team
+# Domain knowledge: add one line per domain as owners emerge — one `**` line
+# covers the domain across all page types (see docs v3/08), e.g.
+# /wiki/**/payment/ @org/payment-team
