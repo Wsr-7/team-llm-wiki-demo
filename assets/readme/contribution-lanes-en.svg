@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="350" viewBox="0 0 1200 350" role="img" aria-labelledby="title desc">
+  <title id="title">Two contribution lanes</title>
+  <desc id="desc">Quick capture is for raw material that should be saved now. Formal pages are for mature knowledge that should be reviewed and cited.</desc>
+  <rect width="1200" height="350" rx="28" fill="#f4f1e8"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+    <text x="64" y="70" font-size="42" font-weight="750" fill="#1d2924">Two contribution lanes</text>
+    <text x="64" y="105" font-size="20" fill="#53635b">Save useful material now; turn it into citable team knowledge when it is ready.</text>
+    <rect x="64" y="145" width="500" height="150" rx="20" fill="#fffdf8" stroke="#1d2924" stroke-width="2"/>
+    <text x="96" y="185" font-size="20" font-weight="700" fill="#47725d">QUICK CAPTURE · ≤ 5 MIN</text><text x="96" y="223" font-size="27" font-weight="750" fill="#1d2924">Context → inbox/ → PR</text><text x="96" y="260" font-size="19" fill="#53635b">Self-merge · any language · unverified</text>
+    <path d="M594 220H606" stroke="#86a795" stroke-width="4" stroke-linecap="round"/>
+    <rect x="636" y="145" width="500" height="150" rx="20" fill="#1d2924"/>
+    <text x="668" y="185" font-size="20" font-weight="700" fill="#b9d3c3">FORMAL PAGE · 15–30 MIN</text><text x="668" y="223" font-size="27" font-weight="750" fill="#f4f1e8">Template → review</text><text x="668" y="260" font-size="19" fill="#b9d3c3">Owner → wiki/ · citable knowledge</text>
+  </g>
+</svg>

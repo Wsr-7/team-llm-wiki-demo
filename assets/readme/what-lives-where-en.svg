@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
+  <title id="title">Where knowledge lives</title>
+  <desc id="desc">The repository separates reviewed knowledge in wiki, unverified captures in inbox, and control-plane materials such as people, schemas, prompts, templates, scripts, and docs.</desc>
+  <rect width="1200" height="440" rx="28" fill="#f4f1e8"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+    <text x="64" y="68" font-size="42" font-weight="750" fill="#1d2924">Where knowledge lives</text>
+    <text x="64" y="103" font-size="20" fill="#53635b">The repository separates trusted knowledge, raw capture, and the control plane that governs both.</text>
+    <rect x="64" y="138" width="500" height="252" rx="20" fill="#1d2924"/>
+    <text x="92" y="178" font-size="28" font-weight="750" fill="#f4f1e8">wiki/</text><text x="202" y="178" font-size="19" fill="#b9d3c3">reviewed knowledge · cite here</text>
+    <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" font-weight="700">
+      <rect x="92" y="204" width="204" height="34" rx="10" fill="#47725d"/><text x="106" y="227" fill="#fffdf8">troubleshooting/</text>
+      <rect x="318" y="204" width="210" height="34" rx="10" fill="#47725d"/><text x="332" y="227" fill="#fffdf8">runbooks/</text>
+      <rect x="92" y="250" width="204" height="34" rx="10" fill="#47725d"/><text x="106" y="273" fill="#fffdf8">systems/</text>
+      <rect x="318" y="250" width="210" height="34" rx="10" fill="#47725d"/><text x="332" y="273" fill="#fffdf8">decisions/</text>
+      <rect x="92" y="296" width="204" height="34" rx="10" fill="#47725d"/><text x="106" y="319" fill="#fffdf8">concepts/</text>
+      <rect x="318" y="296" width="210" height="34" rx="10" fill="#47725d"/><text x="332" y="319" fill="#fffdf8">guides/ + glossary</text>
+    </g>
+    <rect x="604" y="138" width="532" height="98" rx="20" fill="#fbebe4"/><text x="634" y="177" font-size="28" font-weight="750" fill="#1d2924">inbox/</text><text x="774" y="177" font-size="19" fill="#8a4a33">unverified · label when cited</text><text x="634" y="210" font-size="18" fill="#8a4a33">Fast, any-language material before review.</text>
+    <rect x="604" y="258" width="532" height="132" rx="20" fill="#fffdf8" stroke="#d4d0c4" stroke-width="2"/><text x="634" y="292" font-size="22" font-weight="750" fill="#1d2924">Control plane</text><text x="634" y="322" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" fill="#53635b">team/ · schemas/</text><text x="634" y="348" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" fill="#53635b">prompts/ · templates/</text><text x="634" y="374" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" fill="#53635b">scripts/ · docs/</text>
+  </g>
+</svg>

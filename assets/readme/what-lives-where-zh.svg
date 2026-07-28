@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="410" viewBox="0 0 1200 410" role="img" aria-labelledby="title desc">
+  <title id="title">内容分别放在哪里</title>
+  <desc id="desc">仓库将已审核知识放在 wiki，将未核验收集放在 inbox，并用 people、schemas、prompts、templates、scripts 和 docs 组成控制面。</desc>
+  <rect width="1200" height="410" rx="28" fill="#f4f1e8"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif">
+    <text x="64" y="68" font-size="42" font-weight="750" fill="#1d2924">内容分别放在哪里</text>
+    <text x="64" y="103" font-size="20" fill="#53635b">仓库将可信知识、原始收集与管理两者的控制面明确分开。</text>
+    <rect x="64" y="138" width="500" height="228" rx="20" fill="#1d2924"/>
+    <text x="92" y="178" font-size="28" font-weight="750" fill="#f4f1e8">wiki/</text><text x="202" y="178" font-size="19" fill="#b9d3c3">已审核知识 · 从这里引用</text>
+    <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" font-weight="700">
+      <rect x="92" y="204" width="204" height="34" rx="10" fill="#47725d"/><text x="106" y="227" fill="#fffdf8">troubleshooting/</text>
+      <rect x="318" y="204" width="210" height="34" rx="10" fill="#47725d"/><text x="332" y="227" fill="#fffdf8">runbooks/</text>
+      <rect x="92" y="250" width="204" height="34" rx="10" fill="#47725d"/><text x="106" y="273" fill="#fffdf8">systems/</text>
+      <rect x="318" y="250" width="210" height="34" rx="10" fill="#47725d"/><text x="332" y="273" fill="#fffdf8">decisions/</text>
+      <rect x="92" y="296" width="204" height="34" rx="10" fill="#47725d"/><text x="106" y="319" fill="#fffdf8">concepts/</text>
+      <rect x="318" y="296" width="210" height="34" rx="10" fill="#47725d"/><text x="332" y="319" fill="#fffdf8">guides/ + glossary</text>
+    </g>
+    <rect x="604" y="138" width="532" height="98" rx="20" fill="#fbebe4"/><text x="634" y="177" font-size="28" font-weight="750" fill="#1d2924">inbox/</text><text x="774" y="177" font-size="19" fill="#8a4a33">未核验收集 · 引用须说明</text><text x="634" y="210" font-size="18" fill="#8a4a33">审核前的快速、任意语言材料。</text>
+    <rect x="604" y="258" width="532" height="108" rx="20" fill="#fffdf8" stroke="#d4d0c4" stroke-width="2"/><text x="634" y="292" font-size="22" font-weight="750" fill="#1d2924">控制面</text><text x="634" y="322" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" fill="#53635b">team/ · schemas/ · prompts/</text><text x="634" y="348" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" fill="#53635b">templates/ · scripts/ · docs/</text>
+  </g>
+</svg>
