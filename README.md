@@ -19,13 +19,14 @@
 ## How it works in one minute
 
 <p align="center">
-  <img src="./assets/readme/one-minute-workflow-en.svg" width="100%" alt="Four steps: capture raw context, review it in a pull request, publish it to wiki, then let people and AI agents use it with citations.">
+  <img src="./assets/readme/one-minute-workflow-en.svg" width="100%" alt="Two knowledge lanes: raw material enters unverified inbox through a self-merged pull request without review; formal pages pass domain-owner review and CI into reviewed English wiki pages for people and AI agents to consume.">
 </p>
 
-1. **Capture** raw material in `inbox/` in five minutes or less. It is intentionally unverified and needs no frontmatter.
-2. **Review** the candidate in a GitHub pull request. Review notes, revisions, and the decision stay with the change.
-3. **Publish** the approved page to `wiki/`. That is the only location agents may cite without a caveat.
-4. **Maintain** the corpus in a biweekly gardening session: an agent drafts one maintenance PR and a rotating human gardener reviews it.
+1. **Capture** raw material in `inbox/` in five minutes or less. It is intentionally unverified, accepts any language, and needs no frontmatter.
+2. **Quick capture** changes are committed in a self-merged PR and need no review; they remain in `inbox/` and are not team knowledge yet.
+3. **Review** a formal page in a GitHub pull request. The domain owner reviews it and CI validates it before it becomes an English `wiki/` page.
+4. **Consume** through `INDEX.md` or GitHub for people, and cited answers for agents. If no answer exists, the agent returns `unknown` and suggests a page.
+5. **Maintain** the corpus in a biweekly gardening session: an agent drafts one maintenance PR and a rotating human gardener reviews it.
 
 This keeps the low-friction path separate from the trusted path: `inbox/` is a dump, the PR is the candidate layer, and `wiki/` is reviewed team knowledge.
 

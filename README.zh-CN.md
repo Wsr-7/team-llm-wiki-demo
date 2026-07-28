@@ -21,13 +21,14 @@
 ## 一分钟看懂运作方式
 
 <p align="center">
-  <img src="./assets/readme/one-minute-workflow-zh.svg" width="100%" alt="四步流程：捕获原始上下文，在 Pull Request 审核，发布进 wiki，再供人和 AI Agent 带引用使用。">
+  <img src="./assets/readme/one-minute-workflow-zh.svg" width="100%" alt="两条知识路径：原始材料通过无需审核的自行合并 PR 进入未核验 inbox；正式页面经过领域负责人审核和 CI 后进入已审核的英文 wiki，供人和 AI Agent 使用。">
 </p>
 
-1. **捕获**：在五分钟内把原始材料放进 `inbox/`。它有意保持未核验状态，也不需要 frontmatter。
-2. **审核**：在 GitHub Pull Request 中处理候选内容。审核意见、修改记录和最终决定都和改动保留在一起。
-3. **发布**：将批准的页面放进 `wiki/`。这是 agent 唯一可以不加额外提示直接引用的位置。
-4. **维护**：每两周举行一次园艺维护：agent 起草一个维护 PR，轮值园丁审核它。
+1. **捕获**：在五分钟内把原始材料放进 `inbox/`。它有意保持未核验状态，支持任意语言，也不需要 frontmatter。
+2. **快速收集**：通过自行合并、无需审核的 PR 提交；内容仍留在 `inbox/`，尚不是团队知识。
+3. **审核**：正式页面在 GitHub Pull Request 中经过领域 owner 审核和 CI 校验后，才成为英文 `wiki/` 页面。
+4. **使用**：人通过 `INDEX.md` 或 GitHub 查找，Agent 给出带引用的回答；没有答案时，Agent 返回 `unknown` 并建议建页。
+5. **维护**：每两周举行一次园艺维护：agent 起草一个维护 PR，轮值园丁审核它。
 
 这条流程把低门槛路径与可信路径分开：`inbox/` 是原始材料区，PR 是候选层，`wiki/` 是已审核团队知识。
 
