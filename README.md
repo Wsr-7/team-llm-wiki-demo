@@ -2,64 +2,68 @@
 
 > 中文版: [README.zh-CN.md](README.zh-CN.md)
 
-The team knowledge base: a git-managed wiki that **both humans and AI agents read and write**. Production issue solutions, troubleshooting guides, runbooks, system knowledge, decision records, distilled experience — it all lives here, reviewed via pull requests and consumable by any agent.
+<p align="center">
+  <img src="./assets/readme/hero-en.svg" width="100%" alt="Team LLM Wiki: evidence-backed knowledge pages include linked sources, evidence markers, and a named domain owner.">
+</p>
 
-## Table of contents
+> A git-managed, evidence-backed team knowledge base. Capture production context quickly, review it through pull requests, and give people and AI agents knowledge they can cite.
 
-- [How it works in one minute](#how-it-works-in-one-minute)
-- [How to query](#how-to-query)
-- [How to contribute](#how-to-contribute)
-- [Getting external content in (Confluence / Jira / chats)](#getting-external-content-in-confluence--jira--chats)
-- [Repository layout](#repository-layout)
-- [Trust and evidence model](#trust-and-evidence-model)
-- [Local commands](#local-commands)
-- [CI](#ci)
-- [Governance](#governance)
-- [Language policy](#language-policy)
-- [Design docs](#design-docs)
+## Start here
+
+| If you want to… | Do this |
+| --- | --- |
+| **Find an answer** | Ask an agent connected to this repository. It reads [`INDEX.md`](INDEX.md), searches `wiki/`, reads the full page, and answers with citations. |
+| **Save something useful** | Create `inbox/YYYY-MM-DD-<slug>.md` with the context in any language, then open and self-merge a PR. See [`prompts/capture.md`](prompts/capture.md). |
+| **Publish trusted knowledge** | Copy a page type from [`templates/`](templates/), follow [`schemas/frontmatter.md`](schemas/frontmatter.md), and open a PR for the domain owner in [`team/people.md`](team/people.md). |
 
 ## How it works in one minute
 
-```text
-capture (anyone, ≤5 min)          review (GitHub native)         consume (any entry)
-─────────────────────────         ──────────────────────         ───────────────────
-raw material ──► inbox/  ──────►  Pull Request ──► wiki/  ──────► humans: INDEX/GitHub
-(any language,   self-merge PR    (domain owner    (reviewed,     agents: cited answers,
- no format)      no review)        review + CI)     English)      unknown → page suggestion
-```
+<p align="center">
+  <img src="./assets/readme/one-minute-workflow-en.svg" width="100%" alt="Four steps: capture raw context, review it in a pull request, publish it to wiki, then let people and AI agents use it with citations.">
+</p>
 
-- `inbox/` is a zero-friction dump: no frontmatter, no review, any language.
-- The **PR is the candidate layer**: review notes, revisions, and the decision all live in the PR.
-- `wiki/` is reviewed team knowledge — the only content agents may cite without a caveat.
-- A biweekly **gardening session** (agent drafts, rotating human gardener reviews) compiles inbox entries into formal pages and reports stale content.
+1. **Capture** raw material in `inbox/` in five minutes or less. It is intentionally unverified and needs no frontmatter.
+2. **Review** the candidate in a GitHub pull request. Review notes, revisions, and the decision stay with the change.
+3. **Publish** the approved page to `wiki/`. That is the only location agents may cite without a caveat.
+4. **Maintain** the corpus in a biweekly gardening session: an agent drafts one maintenance PR and a rotating human gardener reviews it.
 
-## How to query
+This keeps the low-friction path separate from the trusted path: `inbox/` is a dump, the PR is the candidate layer, and `wiki/` is reviewed team knowledge.
 
-- **With AI**: ask in any agent connected to this repo — Copilot Chat / Copilot Space, Claude Code, opencode, or an internal model wired to [`prompts/query.md`](prompts/query.md). The agent reads [`INDEX.md`](INDEX.md), greps `wiki/`, reads full pages, and answers **with citations**; if the wiki has no answer it returns `unknown` plus a suggestion of which page should exist.
+## Find answers
+
+- **With AI**: use Copilot Chat / Copilot Space, Claude Code, opencode, or an internal model wired to [`prompts/query.md`](prompts/query.md). If no wiki page answers the question, the agent returns `unknown` and suggests which page should exist.
 - **Without AI**: open [`INDEX.md`](INDEX.md) (one line per page) or use GitHub web search.
 
-Agent entry points (all converge on [`AGENTS.md`](AGENTS.md)): `.github/copilot-instructions.md` (Copilot), `CLAUDE.md` (Claude Code), `AGENTS.md` itself (opencode/Codex and the de-facto standard).
+All supported agent entry points converge on [`AGENTS.md`](AGENTS.md): `.github/copilot-instructions.md` for Copilot, `CLAUDE.md` for Claude Code, and `AGENTS.md` for opencode/Codex and the de-facto standard.
 
-## How to contribute
+## Contribute
+
+<p align="center">
+  <img src="./assets/readme/contribution-lanes-en.svg" width="100%" alt="Two contribution lanes: a five-minute inbox capture, or a 15 to 30 minute formal page reviewed by a domain owner.">
+</p>
 
 | Lane | When | How | Cost |
 | --- | --- | --- | --- |
-| **Quick capture** | Just solved an issue / a discussion worth keeping / a lesson learned | Create `inbox/YYYY-MM-DD-<slug>.md` with the context (any language, no frontmatter), open a PR and **merge it yourself** — inbox PRs need no review. Or hand the material to an agent ([`prompts/capture.md`](prompts/capture.md)) | ≤ 5 min |
-| **Formal page** | Content is mature and should become team knowledge | Copy the matching template from [`templates/`](templates/) → fill the frontmatter ([`schemas/frontmatter.md`](schemas/frontmatter.md)) → open a PR for the domain owner ([`team/people.md`](team/people.md)) | 15–30 min |
+| **Quick capture** | You just solved an issue, had a useful discussion, or learned something worth keeping | Create `inbox/YYYY-MM-DD-<slug>.md` with context (any language, no frontmatter), open a PR, and **merge it yourself**. Or hand the material to an agent using [`prompts/capture.md`](prompts/capture.md). | ≤ 5 min |
+| **Formal page** | The content is mature enough to become team knowledge | Copy the matching [`templates/`](templates/) page, fill its frontmatter using [`schemas/frontmatter.md`](schemas/frontmatter.md), then open a PR for the domain owner in [`team/people.md`](team/people.md). | 15–30 min |
 
-You do not need to follow up on inbox entries — the gardening session promotes mature ones into `wiki/` (drafted by the agent, approved by the owner).
+You do not need to follow up on inbox entries. The gardening session promotes mature entries into `wiki/`; agents draft the changes and owners approve them.
 
-## Getting external content in (Confluence / Jira / chats)
+## Bring in external content
 
-Your job is only to **deliver the content to an agent** — converting and structuring it into markdown is the agent's job. Three channels, cheapest first:
+Your job is only to deliver the content to an agent; converting and structuring it into Markdown is the agent's job.
 
-1. **Copy-paste (covers ~90%)**: open the Confluence page → select all → copy → paste into the agent chat. Lost formatting is fine; the agent restructures against a template.
-2. **Export a file**: page `⋯` menu → Export to Word/PDF (or View Storage Format) → drop the file into the chat, or save it and give the agent the path.
-3. **Atlassian MCP** (if approved by the company): configure it once in your own agent client; afterwards pasting the URL is enough — the agent fetches content itself.
+1. **Copy-paste (covers ~90%)**: open the Confluence page, select all, and paste it into the agent chat. Lost formatting is fine; the agent restructures it against a template.
+2. **Export a file**: export to Word, PDF, or View Storage Format, then drop the file into the chat or provide its path.
+3. **Atlassian MCP**: if approved by your company, configure it once in your agent client; afterward the agent can fetch a pasted URL itself.
 
-Conventions: screenshots/images are described in words in the page (the `sources:` link keeps the originals reachable); **no bulk space mirroring** — we migrate individual pages when they are repeatedly needed, and the migrated wiki page becomes authoritative (mark the old Confluence page "no longer maintained"). Worked dialogue examples: [`docs/llm-wiki-architecture-v3/05-工作流场景图解.md`](docs/llm-wiki-architecture-v3/05-工作流场景图解.md).
+Describe important screenshots in words and link the originals in `sources:`. Do not bulk-mirror a whole space: migrate individual pages only when they are repeatedly needed, then make the wiki page authoritative and mark the old Confluence page as no longer maintained. See the worked dialogue examples in [`docs/llm-wiki-architecture-v3/05-工作流场景图解.md`](docs/llm-wiki-architecture-v3/05-工作流场景图解.md).
 
-## Repository layout
+## What lives where
+
+<p align="center">
+  <img src="./assets/readme/what-lives-where-en.svg" width="100%" alt="Repository map: reviewed knowledge lives in wiki, unverified capture lives in inbox, and team, schemas, prompts, templates, scripts, and docs form the control plane.">
+</p>
 
 | Path | Content |
 | --- | --- |
@@ -72,42 +76,43 @@ Conventions: screenshots/images are described in words in the page (the `sources
 | [`wiki/glossary.md`](wiki/glossary.md) | Team terms, one-line definitions |
 | `inbox/` | Unreviewed quick captures (unverified, any language) |
 | [`team/people.md`](team/people.md) | staff-id ↔ GitHub ↔ owned-domain routing table |
-| [`schemas/`](schemas/) | Documented schema: field rules, taxonomy, sources conventions |
-| [`prompts/`](prompts/) | Task protocols: capture / query / gardening |
-| [`templates/`](templates/) | Page skeletons (bilingual comments), one per page type |
-| [`scripts/`](scripts/) | `check.ts` (executable schema) and `build-index.ts`, zero dependencies |
-| [`docs/`](docs/) | Architecture docs, CI plan, design history — not team knowledge |
+| [`schemas/`](schemas/) | Field rules, taxonomy, and source conventions |
+| [`prompts/`](prompts/) | Task protocols: capture, query, and gardening |
+| [`templates/`](templates/) | Bilingual page skeletons, one per page type |
+| [`scripts/`](scripts/) | Dependency-free schema checks and index generation |
+| [`docs/`](docs/) | Architecture docs, CI plan, and design history — not team knowledge |
 
-## Trust and evidence model
+## Trust and evidence
 
-- **Location = trust**: `wiki/` is citable; `inbox/` must be labeled unverified; `docs/` is about the repo itself.
-- **Status enum** (no confidence scores): absent = current · `needs-review` = doubtful, cite with a warning · `superseded` = never cite, follow `superseded_by`.
-- **Evidence ladder** for runbooks/troubleshooting: `sources:` links + verbatim "Source excerpts" + `[E#]` markers tying load-bearing steps to numbered excerpts + optional `verified:` date (last real-world execution) + a mandatory "Unevidenced claims" list in agent-drafted PRs.
-- Full rules: [`schemas/frontmatter.md`](schemas/frontmatter.md) · agent behavior: [`AGENTS.md`](AGENTS.md).
+<p align="center">
+  <img src="./assets/readme/trust-model-en.svg" width="100%" alt="Trust model: inbox is unverified and must be labeled when cited; wiki is citable after checking its status, including warnings for needs-review and no citations for superseded pages.">
+</p>
 
-## Local commands
+- **Location is trust**: `wiki/` is citable; `inbox/` must be labeled unverified; `docs/` documents this repository itself.
+- **Status has three states**: absent = current; `needs-review` = doubtful and needs a warning when cited; `superseded` = never cite — follow `superseded_by` instead.
+- **Runbooks and troubleshooting pages carry evidence**: `sources:` links, verbatim Source excerpts, `[E#]` markers for load-bearing steps, an optional `verified:` date, and an Unevidenced claims list in agent-drafted PRs.
+
+Read the complete rules in [`schemas/frontmatter.md`](schemas/frontmatter.md) and the agent protocol in [`AGENTS.md`](AGENTS.md).
+
+## Local checks and CI
 
 ```bash
-npm run check         # validate: required fields / enums / links / owners / supersede cycles
-npm run build-index   # regenerate INDEX.md (INDEX staleness is a warning; a CI bot rebuilds it on main)
+npm run check         # required fields, enums, links, owners, and supersede cycles
+npm run build-index   # regenerate INDEX.md
 ```
 
-Scripts are dependency-free and run directly with `node` (Node.js ≥ 22.6, no `npm install`).
+The scripts require Node.js ≥ 22.6 and no `npm install`. `INDEX.md` staleness is a warning; a CI bot rebuilds it on `main`.
 
-## CI
+The merge gate is `npm run check` in the root [`Jenkinsfile`](Jenkinsfile) (J1). [`docs/ci.md`](docs/ci.md) also defines index rebuild on `main` (J2) and a gardening watchdog that alerts after 21 days without a maintenance PR (J3). The matching `.github/workflows/` files are reference implementations for environments that use GitHub Actions.
 
-The company CI is **Jenkins** — the root [`Jenkinsfile`](Jenkinsfile) runs `npm run check` as the PR merge gate (job J1). Two more jobs are defined in [`docs/ci.md`](docs/ci.md): INDEX rebuild on main (J2) and the gardening watchdog (J3, alerts when the maintenance loop stalls for 21 days). The `.github/workflows/` files are the same three jobs as a **GitHub Actions reference implementation**; they do not run in environments without Actions.
+## Governance and language
 
-## Governance
-
-- Formal knowledge changes via PR only; domain owners are enforced through CODEOWNERS. Setup: [`docs/branch-protection.md`](docs/branch-protection.md).
-- Biweekly gardening (30 min): the agent produces one maintenance PR per [`prompts/gardening.md`](prompts/gardening.md); a rotating gardener reviews and merges. A watchdog alerts if no gardening PR lands for 21 days.
-- Participation model for a 150–200 person org: 15–25 seed/active contributors on the supply side, everyone on the consume side.
-
-## Language policy
-
-Formal content (`wiki/`, control plane, INDEX, commit/PR text) is **English**; `inbox/` raw captures may be Chinese or mixed and are translated when compiled into wiki pages; verbatim evidence quotes keep their original language with a one-line English gloss. The only sanctioned Chinese formal file is [`README.zh-CN.md`](README.zh-CN.md). Details: [`AGENTS.md`](AGENTS.md).
+- Formal knowledge changes through PRs only; domain ownership is enforced by CODEOWNERS. See [`docs/branch-protection.md`](docs/branch-protection.md).
+- Every two weeks, an agent produces one maintenance PR under [`prompts/gardening.md`](prompts/gardening.md); a rotating gardener reviews and merges it.
+- For a 150–200 person organization, plan for 15–25 seed or active contributors on the supply side and everyone on the consume side.
+- Formal content (`wiki/`, control plane, `INDEX.md`, commit and PR text) is English. `inbox/` captures may be Chinese or mixed and are translated when compiled. Verbatim evidence remains in its original language with a one-line English gloss.
+- [`README.zh-CN.md`](README.zh-CN.md) is the maintained Chinese mirror and the only sanctioned Chinese formal file.
 
 ## Design docs
 
-Architecture, rationale for every cut concept, phase plan with upgrade triggers, workflow walkthroughs, and the adversarial review live in [`docs/llm-wiki-architecture-v3/`](docs/llm-wiki-architecture-v3/).
+Architecture, rationale for removed concepts, phase plans with upgrade triggers, workflow walkthroughs, and the adversarial review live in [`docs/llm-wiki-architecture-v3/`](docs/llm-wiki-architecture-v3/).

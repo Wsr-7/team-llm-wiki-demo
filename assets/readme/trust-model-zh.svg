@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="370" viewBox="0 0 1200 370" role="img" aria-labelledby="title desc">
+  <title id="title">引用前先看位置和状态</title>
+  <desc id="desc">inbox 内容未核验，引用时必须说明；wiki 内容可以引用，但 needs-review 必须带警告，superseded 不能引用。</desc>
+  <rect width="1200" height="370" rx="28" fill="#fffdf8"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif">
+    <text x="64" y="70" font-size="42" font-weight="750" fill="#1d2924">引用前先看位置和状态</text>
+    <text x="64" y="105" font-size="20" fill="#53635b">路径决定基础信任；页面状态决定能否使用与是否需要警告。</text>
+    <rect x="64" y="140" width="420" height="116" rx="18" fill="#fbebe4"/><text x="92" y="178" font-size="26" font-weight="750" fill="#1d2924">inbox/</text><text x="92" y="211" font-size="20" fill="#8a4a33">未核验 · 引用时必须明确说明</text>
+    <rect x="524" y="140" width="612" height="116" rx="18" fill="#e5efe9"/><text x="552" y="178" font-size="26" font-weight="750" fill="#1d2924">wiki/</text><text x="552" y="211" font-size="20" fill="#47725d">可以引用 · 再检查每个页面的 status</text>
+    <text x="64" y="302" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" font-weight="700" letter-spacing="1.4" fill="#47725d">WIKI 页面状态</text>
+    <rect x="285" y="276" width="216" height="48" rx="12" fill="#47725d"/><text x="306" y="307" font-size="19" font-weight="700" fill="#fffdf8">未标记：现行</text>
+    <rect x="523" y="276" width="264" height="48" rx="12" fill="#f3d49d"/><text x="544" y="307" font-size="19" font-weight="700" fill="#5e3f05">needs-review：带警告</text>
+    <rect x="809" y="276" width="327" height="48" rx="12" fill="#1d2924"/><text x="830" y="307" font-size="19" font-weight="700" fill="#f4f1e8">superseded：不能引用</text>
+  </g>
+</svg>

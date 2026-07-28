@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="350" viewBox="0 0 1200 350" role="img" aria-labelledby="title desc">
+  <title id="title">两条贡献路径</title>
+  <desc id="desc">快速收集适用于刚需要保存的原始材料，正式页面适用于成熟且需要被团队审核和引用的知识。</desc>
+  <rect width="1200" height="350" rx="28" fill="#f4f1e8"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif">
+    <text x="64" y="70" font-size="42" font-weight="750" fill="#1d2924">两条贡献路径</text>
+    <text x="64" y="105" font-size="20" fill="#53635b">先把值得留下的材料留下来；成熟后再变成团队可引用的页面。</text>
+    <rect x="64" y="145" width="500" height="150" rx="20" fill="#fffdf8" stroke="#1d2924" stroke-width="2"/>
+    <text x="96" y="185" font-size="20" font-weight="700" fill="#47725d">快速收集 · ≤ 5 分钟</text><text x="96" y="223" font-size="30" font-weight="750" fill="#1d2924">经验 → inbox/ → 自行合并 PR</text><text x="96" y="260" font-size="19" fill="#53635b">无需 frontmatter · 任意语言 · 内容先不当作事实</text>
+    <path d="M594 220H606" stroke="#86a795" stroke-width="4" stroke-linecap="round"/>
+    <rect x="636" y="145" width="500" height="150" rx="20" fill="#1d2924"/>
+    <text x="668" y="185" font-size="20" font-weight="700" fill="#b9d3c3">正式页面 · 15–30 分钟</text><text x="668" y="223" font-size="28" font-weight="750" fill="#f4f1e8">模板 → 元数据 → 审核</text><text x="668" y="260" font-size="19" fill="#b9d3c3">领域 owner 审核 → wiki/ · 可引用知识</text>
+  </g>
+</svg>

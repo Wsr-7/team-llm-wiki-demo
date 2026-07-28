@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">团队 LLM 知识库</title>
+  <desc id="desc">由 Git 管理、以证据为基础的团队知识库；已审核页面带有来源摘录、证据标记和领域负责人。</desc>
+  <rect width="1200" height="360" rx="28" fill="#f4f1e8"/>
+  <path d="M660 0V360" stroke="#d4d0c4"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif" fill="#1d2924">
+    <text x="64" y="70" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="20" font-weight="700" letter-spacing="2.2" fill="#47725d">团队知识 · GIT-NATIVE</text>
+    <text x="64" y="153" font-size="60" font-weight="750" letter-spacing="-2">团队 LLM 知识库</text>
+    <text x="64" y="204" font-size="27" font-weight="650">让人和 AI Agent 都能引用可信知识。</text>
+    <text x="64" y="243" font-size="21" fill="#53635b">快速收集上下文，在 GitHub 审核后复用已验证经验。</text>
+    <text x="64" y="312" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" fill="#53635b">已审核页面 · 链接来源 · 领域负责人</text>
+  </g>
+  <g transform="translate(730 61)" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif">
+    <rect width="406" height="256" rx="20" fill="#fffdf8" stroke="#1d2924" stroke-width="2"/>
+    <text x="28" y="42" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" font-weight="700" letter-spacing="1.5" fill="#47725d">一篇已审核页面</text>
+    <text x="28" y="84" font-size="31" font-weight="750" fill="#1d2924">有上下文的知识</text>
+    <path d="M28 108H378" stroke="#d4d0c4"/>
+    <rect x="28" y="132" width="350" height="30" rx="9" fill="#e5efe9"/>
+    <text x="42" y="153" font-size="18" font-weight="700" fill="#47725d">sources：链接的原始证据</text>
+    <rect x="28" y="174" width="350" height="30" rx="9" fill="#f4f1e8"/>
+    <text x="42" y="195" font-size="18" font-weight="700" fill="#53635b">[E#]：关键步骤可追溯</text>
+    <rect x="28" y="216" width="350" height="30" rx="9" fill="#1d2924"/>
+    <text x="42" y="237" font-size="18" font-weight="700" fill="#f4f1e8">owner：明确的领域路由</text>
+  </g>
+</svg>
